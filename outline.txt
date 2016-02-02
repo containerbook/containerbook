@@ -39,6 +39,16 @@
 ** Docker?
 ** Vagrant?
 
+* In-depth
+** namespaces
+*** IPC
+*** Network
+*** Mount
+*** PID
+*** User
+*** UTS
+** cgroups
+
 * API reference
 ** C-API?
 ** Kernel APIs (e.g. /sys/fs/cgroup/*)
