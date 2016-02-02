@@ -3,6 +3,10 @@
 ** what is containers
 ** what is cgroups
 ** what is namespaces
+** other security mechanisms
+*** seccomp
+*** selinux / smack
+*** XXX
 ** what is XXX ?
 ** How do they relate
 
@@ -37,6 +41,7 @@
 
 * API reference
 ** C-API?
+** Kernel APIs (e.g. /sys/fs/cgroup/*)
 ** Other API?
 
 * Advanced examples
