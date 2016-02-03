@@ -1,11 +1,6 @@
 .. title:: Container book
 
-.. |reviewme| image:: images/reviewme.png
-.. |new| image:: images/new.png
-.. |updated| image:: images/updated.png
-.. |issues| image:: images/issues.png
-
-A Book about Qt5
+A book about containers
 ================
 
 .. issues:: master
@@ -19,14 +14,12 @@ Last Build: |today|
 We are heavily working on this book and that means several things:
 
 #. **It's not done**. We will be releasing new chapters from time to time and updating existing chapters on the go.
-#. **We love your support**. If you find any errors or have suggestions, please use our feedback system (the |issues| links). It will create a new ticket-entry in our ticket system and help us to keep track.
+#. **We love your support**. If you find any errors or have suggestions, please use our feedback system (the "Create" and "View" links on the top of each page). It will create a new ticket-entry in our ticket system and help us to keep track.
 #. **Be patient.** We are working in our spare time on the book and we depend on the support of our companies and family.
 
 **Enjoy!**
 
-
 .. rubric:: Content
-
 
 .. toctree::
     :numbered:
@@ -34,9 +27,6 @@ We are heavily working on this book and that means several things:
 
     en/ch01/index
     assets/index
-
-
-
 
 .. rubric:: Chapter Queue
 

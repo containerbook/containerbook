@@ -44,7 +44,7 @@ def epub_visit_issues_node(self, node):
     raise nodes.SkipNode
 
 def setup(app):
-    app.add_node(issues, 
+    app.add_node(issues,
         html=(html_visit_issues_node, html_depart_issues_node),
         latex=(latex_visit_issues_node, None),
         epub=(epub_visit_issues_node, None)
