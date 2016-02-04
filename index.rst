@@ -1,7 +1,7 @@
 .. title:: Container book
 
 A book about containers
-================
+=======================
 
 .. issues:: master
 
@@ -25,8 +25,8 @@ We are heavily working on this book and that means several things:
     :numbered:
     :maxdepth: 2
 
-    en/ch01/index
-    assets/index
+    en/chapters/introduction/index
+    en/chapters/network-namespace/index
 
 .. rubric:: Chapter Queue
 
