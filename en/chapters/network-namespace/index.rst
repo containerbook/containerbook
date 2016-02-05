@@ -57,7 +57,6 @@ and `veth1` are destroyed as a consequence of deleting the namespace. `veth0`
 is destroyed since it is no longer reachable once the namespace ceases to
 exist, and `veth1` is destroyed once its only endpoint is lost.
 
-
 ----------------------
 A more complex example
 ----------------------
