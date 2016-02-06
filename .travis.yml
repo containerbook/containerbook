@@ -17,10 +17,13 @@ script:
 - cd ../../
 - make latexpdf
 - make examples
+- ls _build/latex/
+install: true
 deploy:
   provider: releases
   api_key:
     secure: Dixo/SPOEiTzKiOBMqCtFxgH5+C4pisFHf8rEUg6a3kTOUNrf9cpNUmM8OSmjKDP+/2jlJNAVrSibz1gkZd9yH+g9oVz41kd6c0PDuOr8u8e44IRpUuoWmy5l++St+fQfwM6iVHEz7hVafyGL/3OI/6GeP9D9BHT8kna7pNSU0YL8+WREpD7c4Rc46qgtaJEtaY4PWLbyJrqt2doPy2oK32Zk8b8A16EmeoGRFT83RFee23SrL/FScUZwP6CN76A3ldsh9/B4dphNH2Dd6OCEa7qDsUfkBohhGmlBPEI+JLqXQl4fFmTQjRIlSxnIE+ZlWTCNamcsenFsCdayPg6uLnscsws+jS2UQaWqIQDXpbJjk4jyv5qcUxUh/F2FMCJ4VZVx8njDnza5ojcwO/RFdmt6nIMCGEjl14s6NJFInclbl+L22AxsxYjzruawQE3J+C61WSc0z/XfIO9adjkbKrfNSegOgIvjPRIrA+9XooO7/8MRkdWer/yicOD0k4b7iRLhtKoygAgyLSiDwHm9YYMJ29pdkHKZhkuxldBUs6M6XXss3VbzwQyIEeaxIHvlS5s1Yk0DfC6ojHiZSmbpA+4QNB1+jH439/lfGBMvODWIMAKdyOQtt2/8lG9mnKbqrXMrbEms5ij5JJ53eJzT1apMuO+5tP0hYkuY0rED8U=
-  file: _build/latex/container_book.pdf
+  file:
+      - _build/latex/container_book.pdf
   on:
     repo: containerbook/containerbook
