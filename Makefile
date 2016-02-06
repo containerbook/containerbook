@@ -20,27 +20,29 @@ default: html
 	
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  html       to make standalone HTML files"
-	@echo "  dirhtml    to make HTML files named index.html in directories"
-	@echo "  singlehtml to make a single large HTML file"
-	@echo "  pickle     to make pickle files"
-	@echo "  json       to make JSON files"
-	@echo "  htmlhelp   to make HTML files and a HTML help project"
-	@echo "  qthelp     to make HTML files and a qthelp project"
-	@echo "  devhelp    to make HTML files and a Devhelp project"
-	@echo "  epub       to make an epub"
-	@echo "  latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter"
-	@echo "  latexpdf   to make LaTeX files and run them through pdflatex"
-	@echo "  text       to make text files"
-	@echo "  man        to make manual pages"
-	@echo "  texinfo    to make Texinfo files"
-	@echo "  info       to make Texinfo files and run them through makeinfo"
-	@echo "  gettext    to make PO message catalogs"
-	@echo "  changes    to make an overview of all changed/added/deprecated items"
-	@echo "  linkcheck  to check all external links for integrity"
-	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
+	@echo "  html             to make standalone HTML files"
+	@echo "  dirhtml          to make HTML files named index.html in directories"
+	@echo "  singlehtml       to make a single large HTML file"
+	@echo "  pickle           to make pickle files"
+	@echo "  json             to make JSON files"
+	@echo "  htmlhelp         to make HTML files and a HTML help project"
+	@echo "  qthelp           to make HTML files and a qthelp project"
+	@echo "  devhelp          to make HTML files and a Devhelp project"
+	@echo "  epub             to make an epub"
+	@echo "  latex            to make LaTeX files, you can set PAPER=a4 or PAPER=letter"
+	@echo "  latexpdf         to make LaTeX files and run them through pdflatex"
+	@echo "  text             to make text files"
+	@echo "  man              to make manual pages"
+	@echo "  texinfo          to make Texinfo files"
+	@echo "  info             to make Texinfo files and run them through makeinfo"
+	@echo "  gettext          to make PO message catalogs"
+	@echo "  changes          to make an overview of all changed/added/deprecated items"
+	@echo "  linkcheck        to check all external links for integrity"
+	@echo "  doctest          to run all doctests embedded in the documentation (if enabled)"
+	@echo "  install-deps-deb to install dependencies required for building the book (Debian based systems)"
+	@echo "  examples         to make all example code"
 
-clean:
+clean: examples_clean
 	-rm -rf $(BUILDDIR)/*
 
 html:
@@ -159,3 +161,9 @@ install-deps-deb:
 	sudo apt-get install -y --no-install-recommends \
 		python3-sphinx                           \
 		python3-sphinx-bootstrap-theme
+
+examples:
+	$(MAKE) -C en examples
+
+examples_clean:
+	$(MAKE) -C en examples_clean
