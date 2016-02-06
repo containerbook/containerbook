@@ -1,0 +1,7 @@
+language: python
+python:
+    - "3.5"
+script:
+    - pip install sphinx sphinx-bootstrap-theme
+    - make
+    - make examples
