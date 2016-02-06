@@ -22,4 +22,5 @@ int main(int argc, char **argv) {
         perror("exec");
         return status;
     }
+    I'm an error!
 }
