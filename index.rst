@@ -26,6 +26,8 @@ We are heavily working on this book and that means several things:
     :maxdepth: 2
 
     en/chapters/introduction/index
+    en/chapters/introduction-to-namespaces/index
+    en/chapters/introduction-to-cgroups/index
     en/chapters/network-namespace/index
 
 .. rubric:: Chapter Queue
