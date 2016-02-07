@@ -54,8 +54,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Containter Book'
-copyright = u'2016 Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License'
-
+copyright = u'2016 Johan Thelin, Jonatan Pålsson & Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License' 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
@@ -254,7 +253,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'container_book.tex', u'Container Book',
-   u'JThelin, OAndreasson', 'manual'),
+   u'JThelin, JPalsson, OAndreasson', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -298,7 +297,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Container Book', u'Container Book',
-   u'JThelin, OAndreasson', 'Container Book', 'A book about linux containers.',
+   u'JThelin, JPalsson, OAndreasson', 'Container Book', 'A book about linux containers.',
    'Miscellaneous'),
 ]
 
@@ -318,8 +317,8 @@ texinfo_documents = [
 epub_basename = 'container_book'
 epub_scheme = 'URL'
 epub_identifier = 'containerbook.org'
-epub_publisher = 'JThelin, OAndreasson'
-epub_author = 'JThelin, OAndreasson'
+epub_publisher = 'JThelin, JPalsson, OAndreasson'
+epub_author = 'JThelin, JPalsson, OAndreasson'
 epub_title = 'Container Book'
 epub_tocdup = False
 epub_tocdepth = 2

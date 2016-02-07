@@ -30,6 +30,6 @@ So you speak something else then english. Great! Feel free to translate the book
 
 Note: The infrastructure is not yet there, but soon we should be ready for translations.
 
-// JThelin, OAndreasson
+// JThelin, JPalsson, OAndreasson
 
 
