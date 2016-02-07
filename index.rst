@@ -35,5 +35,5 @@ We are heavily working on this book and that means several things:
 
 .. rubric:: Chapter Queue
 
-The chapter queue are the chapters we are working on. They might be almost ready or in an infante state. Give it a try if you like.
+The chapter queue are the chapters we are working on. They might be almost ready or in an infant state. Give it a try if you like.
 
