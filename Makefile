@@ -14,7 +14,7 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 # the i18n builder cannot share the environment and doctrees with the others
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
-.PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext install-deps-deb
+.PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext install-deps-deb check-spelling
 
 default: html
 	
@@ -41,6 +41,8 @@ help:
 	@echo "  doctest          to run all doctests embedded in the documentation (if enabled)"
 	@echo "  install-deps-deb to install dependencies required for building the book (Debian based systems)"
 	@echo "  examples         to make all example code"
+	@echo "  check-spelling   to check for spelling mistakes using aspell"
+	@echo "  fix-spelling     to fix spelling mistakes manually using aspell"
 
 clean: examples_clean
 	-rm -rf $(BUILDDIR)/*
@@ -167,3 +169,9 @@ examples:
 
 examples_clean:
 	$(MAKE) -C en examples_clean
+
+check-spelling:
+	./check_spelling.sh -a
+
+fix-spelling:
+	./check_spelling.sh

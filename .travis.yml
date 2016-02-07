@@ -9,6 +9,7 @@ before_install:
     - sudo apt-get install -y --no-install-recommends texlive-latex-recommended 
     - sudo apt-get install -y --no-install-recommends texlive-latex-extra
     - sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
+    - sudo apt-get install -y --no-install-recommends aspell aspell-en
 script:
 - pip install sphinx sphinx-bootstrap-theme
 - mkdir -p _build/latex/
@@ -17,7 +18,7 @@ script:
 - cd ../../
 - make latexpdf
 - make examples
-- ls _build/latex/
+- make check-spelling
 install: true
 deploy:
   provider: releases
