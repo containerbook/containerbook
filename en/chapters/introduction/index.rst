@@ -1,6 +1,6 @@
-========================
+=========================
 Introduction to this book
-========================
+=========================
 
 This project started out when a group of people from Pelagicore went to FOSDEM
 2016. We saw several very interesting talks on containers and talked among
@@ -26,9 +26,9 @@ alternatively if possible we will show how to perform a given task before and
 after an API change. 
 
 
-=========================
+==========================
 Introduction to containers
-=========================
+==========================
 
 Linux containers are generally based on two underpinning technologies provided
 by the Linux kernel, the namespaces and cgroups. These are presented in depth in
