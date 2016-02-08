@@ -18,6 +18,8 @@ progresses.
 In order to work with namespaces, we need to get some basics out of the way,
 which is what we will start with in this introductory chapter.
 
+.. _viewing-namespaces:
+
 Viewing the current namespaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -75,9 +77,9 @@ Below is some example code which first calls the `unshare` system call on the
 network namespace, and then proceeds to launch an executable within the new
 namespace.
 
-
 .. literalinclude:: code-samples/unshare.c
     :language: c
+    :name: unshare-example
     :linenos:
 
 If we use the above code to launch a bash shell, we can use the `ip` tool to
@@ -110,8 +112,63 @@ how they are created.
 Pinning namespaces
 ^^^^^^^^^^^^^^^^^^
 
-.. todo:: Describe how bind-mounting a namespace causes it to survive the death
-          of the process which created it.
+A namespace remains alive as long as one of the following conditions is fulfilled:
+
+* The process which created the namespace is still running (and the namespace has not been unshared)
+* The file descriptor of the namespace is open somewhere
+* The file descriptor of the namespace has been `bind mounted` somewhere
+
+The first of these bullets should be clear from :ref:`viewing-namespaces`. The
+second bullet may not be as intuitive. It may seems like the only way to get a
+reference to a namespace file descriptor is to create a new namespace, but this
+is not the case. File descriptors can be passed in a variety of fashions, which
+makes bullet two an important one to keep in mind. Consider `forking` for
+instance. When a process forks, file descriptors are inherited by the child
+process. Even if the parent process closes its file descriptor, it may remain
+open in the child. File descriptors can also be passed around in Unix domain
+sockets, which gives yet another way for several processes to get hold of
+namespace file descriptors, even though they did not create the namespace
+themselves.
+
+.. todo:: Maybe it's worth adding some C code to demonstrate forking and
+          keeping a reference to the NS in the child?
+
+The last of the bullet points above can be elegantly demonstrated using a few
+bash commands. A key point to understand in order to follow along in the
+example is that files and directories can be `bind mounted` in Linux. A bind
+mount functions much in the same way as when mounting a block device on a path,
+but for regular files and directories. It is semantically similar to a symbolic
+link.
+
+.. literalinclude:: code-samples/pin-namespace.sh
+    :language: bash
+    :linenos:
+
+In the example above, we yet again make use of the small utility program from :ref:`unshare-example`.
+
+.. todo:: The example link is broken
+
+We first unshare the network namespace, then we bind mount the new network
+namespace to a file in `/tmp`. The shell in which we unshared the network
+namespace can now be exited, thereby terminating the process which created the
+namespace, but the namespace is still alive, due to the bind mount.
+
+We can see that the namespace survives even though the creating process has
+exited by issuing `mount`. This will show a file system of type `nsfs` mounted
+on `/tmp/my_network_ns`:
+
+.. code-block:: bash
+
+    # mount
+    ...
+    nsfs on /tmp/my_ns type nsfs (rw)
+
+It is however not very exiting to be able to create these persistent namespaces
+without having any use for them, therefore the next section will introduce
+entering and sharing namespaces between processes.
+
+Entering namespaces
+^^^^^^^^^^^^^^^^^^^
 
 Destroying and leaving namespaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
