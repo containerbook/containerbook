@@ -1,12 +1,14 @@
-FILES=unshare.c
-TARGET_NAME=unshare
-
 .PHONY: clean
 
 all: examples
 
-examples:
-	$(CC) $(FILES) -o $(TARGET_NAME)
+unshare:
+	$(CC) unshare.c -o unshare
+
+nsenter:
+	$(CC) nsenter.c -o nsenter
+
+examples: unshare nsenter
 
 examples_clean:
-	rm -f $(TARGET_NAME)
+	rm -f unshare nsenter
