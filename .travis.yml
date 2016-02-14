@@ -16,9 +16,26 @@ script:
 - cd _build/latex/
 - wget http://math.sut.ac.th/lab/software/texlive/texmf-dist/tex/latex/caption/newfloat.sty
 - cd ../../
-- make latexpdf
+- #make latexpdf
 - make examples
 - make check-spelling
+- make
+- cp -a _build/html /tmp/
+- git clone "https://${GH_TOKEN}@github.com/containerbook/containerbook" /tmp/cbook
+- cd /tmp/cbook
+- git config user.name "Travis CI"
+- git config user.email "jonatan.p@gmail.com"
+- git fetch --all
+- git checkout gh-pages
+- git fetch origin gh-pages
+- git clean -xfd
+- cp -a /tmp/html/* .
+- git add .
+- git commit -a -m "Regenerate page"
+- git push --quiet "https://${GH_TOKEN}@github.com/containerbook/containerbook" gh-pages origin/gh-pages --force
+env:
+    global:
+        - secure: "lWzSZJwnQEE+eY4jnCssdgpJYzXZ+xYgraEbzLUMsdm3T2uzYTURUR4lL1FANfwWlbkQyWdH7ZIrhPZdxcXxY1tQgDgiRq43tBmR8uIL8Ab7v7CQwR8MHNNrbAaag3sfDC6bZSubGcGsPkqpAaZRW4i1JfbazAsLxRwWtB3+SadGVSm8xGFnP18Hjz8wVwpTaxdTE+BUT67hopRJsiVr6KtIe9a6qrNxAZcmBva2a9TffdgfQx+FGWy52B/401frYtIauPNR6FmyTQPVBlw2eNGwYvJy66j7P8rUFEdASBtiE/EO1Li/mYYZeQKBBJB0Fjn97VcU1ZgJXC1k/WjXc5GMXiyNUZCSwFOZcoZj0bh8imMGMFQ1uAo8Ku7A4iy7o81nYoB/S3FxL01AC6eRC1RSV82bMCIzGhGsGZVYm255fHFwpzc3wGhUR5eH7svn5mKdeSrrvW1czN4YfQ38YLrZ4MrT5ynBjQkczHrZqAuG1poOHBm5CUpLSsjarnw6hIayJf/hVrSPnEnz4jrwgPRGE/K2VI9qoDqKWrUrtm5H4CogXelF1a+huw2CU+7V1gyn1pg1byQvV96e4Cug486jTRJcnMbnGq2aJPu9NEZ87S6P5GL/HmbdVNmPIziFei10egDEjK131QhWcIsExvIlWBdlARN4gofA2mpA52I="
 install: true
 deploy:
   provider: releases
