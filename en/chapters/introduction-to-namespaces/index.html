@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. Introduction to namespaces &mdash; Containter Book v2015-03</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/sandstone/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2015-03',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="Containter Book v2015-03" href="../../../index.html" />
+    <link rel="next" title="4. Introduction to cgroups" href="../introduction-to-cgroups/index.html" />
+    <link rel="prev" title="1. Introduction to this book" href="../introduction/index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          ContainerBook</a>
+        <span class="navbar-text navbar-version pull-left"><b>2015-03</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Chapters <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">1. Introduction to this book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html#introduction-to-containers">2. Introduction to containers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Introduction to namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">4. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history/index.html">5. History of containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hello_world/index.html">6. Hello World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">7. Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../network-namespace/index.html">8. Network namespace</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">3. Introduction to namespaces</a><ul>
+<li><a class="reference internal" href="#what-is-a-namespace">3.1. What is a namespace?</a><ul>
+<li><a class="reference internal" href="#viewing-the-current-namespaces">3.1.1. Viewing the current namespaces</a></li>
+<li><a class="reference internal" href="#pinning-namespaces">3.1.2. Pinning namespaces</a></li>
+<li><a class="reference internal" href="#entering-namespaces">3.1.3. Entering namespaces</a></li>
+<li><a class="reference internal" href="#destroying-and-leaving-namespaces">3.1.4. Destroying and leaving namespaces</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../introduction/index.html" title="Previous Chapter: 1. Introduction to this book"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 1. Introducti...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../introduction-to-cgroups/index.html" title="Next Chapter: 4. Introduction to cgroups"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">4. Introducti... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="introduction-to-namespaces">
+<h1>3. Introduction to namespaces<a class="headerlink" href="#introduction-to-namespaces" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-a-namespace">
+<h2>3.1. What is a namespace?<a class="headerlink" href="#what-is-a-namespace" title="Permalink to this headline">¶</a></h2>
+<p>Namespaces are used to give a limited view of the system to a particular
+process. For instance, a <cite>network</cite> namespace can be used to give a process the
+impression of only having certain network interfaces attached to the system. A
+different example is the <cite>mount</cite> namespace which only exposes a selection of
+the mounted file systems, or the <cite>pid</cite> namespace which gives a manipulated view
+of the running processes on a the system. All of these namespaces have
+different applications, which will be described in greater detail as this book
+progresses.</p>
+<p>In order to work with namespaces, we need to get some basics out of the way,
+which is what we will start with in this introductory chapter.</p>
+<div class="section" id="viewing-the-current-namespaces">
+<span id="viewing-namespaces"></span><h3>3.1.1. Viewing the current namespaces<a class="headerlink" href="#viewing-the-current-namespaces" title="Permalink to this headline">¶</a></h3>
+<p>All processes start out in the same namespace, which is the same as saying that
+starting out, there are no namespaces. The namespace a process currently
+participates in can be seen by investigating the <cite>/proc/&lt;pid&gt;/ns/</cite> directory.
+Below are some examples of this directory for a few different process IDs on my
+system.</p>
+<p>These are the namespaces of the init process:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># ls -la /proc/1/ns/</span>
+total 0
+dr-x--x--x <span class="m">2</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 21:47 .
+dr-xr-xr-x <span class="m">9</span> root root <span class="m">0</span> Jan <span class="m">28</span> 19:04 ..
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 ipc -&gt; ipc:<span class="o">[</span>4026531839<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 mnt -&gt; mnt:<span class="o">[</span>4026531840<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 net -&gt; net:<span class="o">[</span>4026531969<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 pid -&gt; pid:<span class="o">[</span>4026531836<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 user -&gt; user:<span class="o">[</span>4026531837<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 uts -&gt; uts:<span class="o">[</span>4026531838<span class="o">]</span>
+</pre></div>
+</div>
+<p>These are the namespaces of a vim process:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># ls -la /proc/25288/ns/</span>
+total 0
+dr-x--x--x <span class="m">2</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 21:47 .
+dr-xr-xr-x <span class="m">9</span> root root <span class="m">0</span> Feb  <span class="m">3</span> 20:56 ..
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 ipc -&gt; ipc:<span class="o">[</span>4026531839<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 mnt -&gt; mnt:<span class="o">[</span>4026531840<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 net -&gt; net:<span class="o">[</span>4026531969<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 pid -&gt; pid:<span class="o">[</span>4026531836<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 user -&gt; user:<span class="o">[</span>4026531837<span class="o">]</span>
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">5</span> 22:03 uts -&gt; uts:<span class="o">[</span>4026531838<span class="o">]</span>
+</pre></div>
+</div>
+<p>The <cite>ipc</cite>, <cite>mnt</cite>, <cite>net</cite>, .., files are special symlinks. The number in the
+destination of the symlink is a representation of the inode it links to. This
+inode can in turn be seen as an identifier of the namespace being referred to,
+this means <cite>ipc:[0]</cite> is a different namespace than <cite>ipc:[1]</cite>. As already
+mentioned, each namespace has its own view of the system, and two processes
+belonging to the same namespace, as in the example above, will have a shared
+view.</p>
+<p>The question is then, how do we create a new namespace? Well, there is a system
+call for that. The system call is called <cite>unshare</cite>, which may seem unintuitive,
+but the name comes from the fact that namespaces are created when processes
+exit their current namespace, thereby creating a new one.</p>
+<p>Below is some example code which first calls the <cite>unshare</cite> system call on the
+network namespace, and then proceeds to launch an executable within the new
+namespace.</p>
+<div class="highlight-c" id="unshare-example"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#define _GNU_SOURCE</span>
+<span class="cp">#include</span> <span class="cpf">&lt;sched.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Usage: %s &lt;command&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Unshare network namespace */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">status</span> <span class="o">=</span> <span class="n">unshare</span><span class="p">(</span><span class="n">CLONE_NEWNET</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;unshare&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Execute command with namespace unshared */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">status</span> <span class="o">=</span> <span class="n">execl</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">NULL</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;exec&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>If we use the above code to launch a bash shell, we can use the <cite>ip</cite> tool to
+view the available network devices within our new network namespace.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># ip link</span>
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN mode DEFAULT group default
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu <span class="m">1500</span> qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+    link/ether 50:7b:9d:39:84:79 brd ff:ff:ff:ff:ff:ff
+3: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc mq state UP mode DORMANT group default qlen 1000
+    link/ether 94:65:9c:90:ae:98 brd ff:ff:ff:ff:ff:ff
+4: tun0: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 100
+    link/none
+<span class="c1"># gcc unshare.c -o unshare</span>
+<span class="c1"># ./unshare /bin/bash</span>
+<span class="c1"># ip link</span>
+1: lo: &lt;LOOPBACK&gt; mtu <span class="m">65536</span> qdisc noop state DOWN mode DEFAULT group default
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+</pre></div>
+</td></tr></table></div>
+<p>We can see that outside the namespace, four network devices are visible, but
+once the current networking namespace has been unshared, only the loopback
+device is visible. There are many interesting things to do with the networking
+namespace, but we will leave those for a later chapter. it should however now
+be clear how namespaces are used to limit the view of certain resources, and
+how they are created.</p>
+</div>
+<div class="section" id="pinning-namespaces">
+<h3>3.1.2. Pinning namespaces<a class="headerlink" href="#pinning-namespaces" title="Permalink to this headline">¶</a></h3>
+<p>A namespace remains alive as long as one of the following conditions is fulfilled:</p>
+<ul class="simple">
+<li>The process which created the namespace is still running (and the namespace has not been unshared)</li>
+<li>The file descriptor of the namespace is open somewhere</li>
+<li>The file descriptor of the namespace has been <cite>bind mounted</cite> somewhere</li>
+</ul>
+<p>The first of these bullets should be clear from <a class="reference internal" href="#viewing-namespaces"><span class="std std-ref">Viewing the current namespaces</span></a>. The
+second bullet may not be as intuitive. It may seems like the only way to get a
+reference to a namespace file descriptor is to create a new namespace, but this
+is not the case. File descriptors can be passed in a variety of fashions, which
+makes bullet two an important one to keep in mind. Consider <cite>forking</cite> for
+instance. When a process forks, file descriptors are inherited by the child
+process. Even if the parent process closes its file descriptor, it may remain
+open in the child. File descriptors can also be passed around in Unix domain
+sockets, which gives yet another way for several processes to get hold of
+namespace file descriptors, even though they did not create the namespace
+themselves.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Maybe it&#8217;s worth adding some C code to demonstrate forking and
+keeping a reference to the NS in the child?</p>
+</div>
+<p>The last of the bullet points above can be elegantly demonstrated using a few
+bash commands. A key point to understand in order to follow along in the
+example is that files and directories can be <cite>bind mounted</cite> in Linux. A bind
+mount functions much in the same way as when mounting a block device on a path,
+but for regular files and directories. It is semantically similar to a symbolic
+link.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Start a new bash shell in a new network namespace</span>
+./unshare bash
+
+<span class="c1"># Create a file we will bind mount to</span>
+touch /tmp/my_network_ns
+
+<span class="c1"># Mount the network namespace of the current PID ($$) to /tmp/my_network_ns</span>
+mount --bind /proc/<span class="nv">$$</span>/ns/net /tmp/my_network_ns
+
+<span class="c1"># Exit the bash process, which would normally destroy the namespace</span>
+<span class="nb">exit</span>
+</pre></div>
+</td></tr></table></div>
+<p>In the example above, we yet again make use of the small utility program from <span class="xref std std-ref">unshare-example</span>.</p>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">The example link is broken</p>
+</div>
+<p>We first unshare the network namespace, then we bind mount the new network
+namespace to a file in <cite>/tmp</cite>. The shell in which we unshared the network
+namespace can now be exited, thereby terminating the process which created the
+namespace, but the namespace is still alive, due to the bind mount.</p>
+<p>We can see that the namespace survives even though the creating process has
+exited by issuing <cite>mount</cite>. This will show a file system of type <cite>nsfs</cite> mounted
+on <cite>/tmp/my_network_ns</cite>:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># mount</span>
+...
+nsfs on /tmp/my_ns <span class="nb">type</span> nsfs <span class="o">(</span>rw<span class="o">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>It is however not very exiting to be able to create these persistent namespaces
+without having any use for them, therefore the next section will introduce
+entering and sharing namespaces between processes.</p>
+</div>
+<div class="section" id="entering-namespaces">
+<h3>3.1.3. Entering namespaces<a class="headerlink" href="#entering-namespaces" title="Permalink to this headline">¶</a></h3>
+<p>Once a namespace has been pinned, or otherwise shared, it can be entered by
+other processes using the <cite>setns</cite> system call. An example of some C code using
+this system call is seen below. The first parameter for the <cite>setns</cite> system call
+is the file descriptor of the namespace to enter, and the second is a mask of
+the namespaces to enter using this file descriptor, with 0 as a wildcard for
+all namespaces.</p>
+<p>Once a namespace has been entered, the view of the system for the entering
+process will be the same as for the processes already in the namespace. As an
+example, the network devices created within a namespace at one point in time
+are visible to processes entering the namespace at a later point in time.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#define _GNU_SOURCE</span>
+<span class="c1">#include &lt;sched.h&gt;</span>
+<span class="c1">#include &lt;stdio.h&gt;</span>
+<span class="c1">#include &lt;unistd.h&gt;</span>
+<span class="c1">#include &lt;fcntl.h&gt;</span>
+
+int main<span class="o">(</span>int argc, char **argv<span class="o">)</span> <span class="o">{</span>
+    int status<span class="p">;</span>
+
+    <span class="k">if</span> <span class="o">(</span>argc !<span class="o">=</span> 3<span class="o">)</span> <span class="o">{</span>
+        printf<span class="o">(</span><span class="s2">&quot;Usage: %s &lt;namespace fd&gt; &lt;command&gt;\n&quot;</span>, argv<span class="o">[</span>0<span class="o">])</span><span class="p">;</span>
+        <span class="k">return</span> 1<span class="p">;</span>
+    <span class="o">}</span>
+
+    int <span class="nv">fd</span> <span class="o">=</span> open<span class="o">(</span>argv<span class="o">[</span>1<span class="o">]</span>, O_RDONLY<span class="o">)</span><span class="p">;</span>
+    <span class="k">if</span> <span class="o">(</span>!fd<span class="o">)</span> <span class="o">{</span>
+        perror<span class="o">(</span><span class="s2">&quot;open&quot;</span><span class="o">)</span><span class="p">;</span>
+        <span class="k">return</span> 1<span class="p">;</span>
+    <span class="o">}</span>
+
+    /* Enter the namespace given as the first parameter */
+    <span class="k">if</span> <span class="o">((</span><span class="nv">status</span> <span class="o">=</span> setns<span class="o">(</span>fd, 0<span class="o">)))</span> <span class="o">{</span>
+        perror<span class="o">(</span><span class="s2">&quot;setns&quot;</span><span class="o">)</span><span class="p">;</span>
+        <span class="k">return</span> status<span class="p">;</span>
+    <span class="o">}</span>
+
+    /* Execute <span class="nb">command</span> with namespace entered */
+    <span class="k">if</span> <span class="o">((</span><span class="nv">status</span> <span class="o">=</span> execl<span class="o">(</span>argv<span class="o">[</span>2<span class="o">]</span>, argv<span class="o">[</span>2<span class="o">]</span>, NULL<span class="o">)))</span> <span class="o">{</span>
+        perror<span class="o">(</span><span class="s2">&quot;exec&quot;</span><span class="o">)</span><span class="p">;</span>
+        <span class="k">return</span> status<span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>The above example code accepts the file name of a namespace file as the first
+parameter, and a command to execute in the namespace of the file descriptor
+given.</p>
+<p>Let&#8217;s look at this utility being used in practice. We will make use of the
+<cite>unshare</cite> utility developed previously, and also the <cite>mount &#8211;bind</cite> trick we
+just leaned.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># unshare /bin/bash</span>
+<span class="c1"># ifconfig -a</span>
+lo: <span class="nv">flags</span><span class="o">=</span>8&lt;LOOPBACK&gt;  mtu 65536
+    loop  txqueuelen <span class="m">0</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
+    RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+    RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+    TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+    TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+<span class="c1"># ip link add veth1 type veth peer veth0</span>
+<span class="c1"># ifconfig  -a</span>
+lo: <span class="nv">flags</span><span class="o">=</span>8&lt;LOOPBACK&gt;  mtu 65536
+        loop  txqueuelen <span class="m">0</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+
+veth0: <span class="nv">flags</span><span class="o">=</span>4098&lt;BROADCAST,MULTICAST&gt;  mtu 1500
+        ether 3a:ce:bb:c0:84:4d  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+
+veth1: <span class="nv">flags</span><span class="o">=</span>4098&lt;BROADCAST,MULTICAST&gt;  mtu 1500
+        ether 16:e7:aa:42:1d:86  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+<span class="c1"># touch /tmp/my_net_ns</span>
+<span class="c1"># mount --bind /proc/$$/ns/net /tmp/my_net_ns</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now we have created a new namespace with two devices in it, veth0 and veth1.
+Let&#8217;s open up a new shell and ensure <cite>veth0</cite> and <cite>veth1</cite> are not accessible
+from here.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># ifconfig -a</span>
+eth0: <span class="nv">flags</span><span class="o">=</span>4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+    ether 50:7b:9d:39:84:79  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+    RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+    RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+    TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+    TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+    device interrupt <span class="m">20</span>  memory 0xf1200000-f1220000
+
+lo: <span class="nv">flags</span><span class="o">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen <span class="m">128</span>  scopeid 0x10&lt;host&gt;
+        loop  txqueuelen <span class="m">0</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
+        RX packets <span class="m">12718</span>  bytes <span class="m">1038659</span> <span class="o">(</span>1014.3 KiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">12718</span>  bytes <span class="m">1038659</span> <span class="o">(</span>1014.3 KiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+<span class="c1"># ./nsenter /tmp/my_net_ns /bin/bash</span>
+<span class="c1"># ifconfig -a</span>
+lo: <span class="nv">flags</span><span class="o">=</span>8&lt;LOOPBACK&gt;  mtu 65536
+    loop  txqueuelen <span class="m">0</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
+    RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+    RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+    TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+    TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+
+veth0: <span class="nv">flags</span><span class="o">=</span>4098&lt;BROADCAST,MULTICAST&gt;  mtu 1500
+        ether 3a:ce:bb:c0:84:4d  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+
+veth1: <span class="nv">flags</span><span class="o">=</span>4098&lt;BROADCAST,MULTICAST&gt;  mtu 1500
+        ether 16:e7:aa:42:1d:86  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+</pre></div>
+</td></tr></table></div>
+<p>As we can see in the last example, the <cite>veth0</cite> and <cite>veth1</cite> are indeed visible
+in the new shell after we have issued the <cite>setns</cite> system call using the
+<cite>nsenter</cite> utility.</p>
+</div>
+<div class="section" id="destroying-and-leaving-namespaces">
+<h3>3.1.4. Destroying and leaving namespaces<a class="headerlink" href="#destroying-and-leaving-namespaces" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Describe how removing bind mounts destroys pinned namespaces, and how
+exiting a namespace suffices to destroy it if it has not been pinned.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
+      Last updated on Mar 29, 2016.<br/>
+    </p>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46104829-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

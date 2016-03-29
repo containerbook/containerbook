@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. Introduction to this book &mdash; Containter Book v2015-03</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/sandstone/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2015-03',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="Containter Book v2015-03" href="../../../index.html" />
+    <link rel="next" title="3. Introduction to namespaces" href="../introduction-to-namespaces/index.html" />
+    <link rel="prev" title="A book about containers" href="../../../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          ContainerBook</a>
+        <span class="navbar-text navbar-version pull-left"><b>2015-03</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Chapters <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Introduction to this book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#introduction-to-containers">2. Introduction to containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">3. Introduction to namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">4. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history/index.html">5. History of containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hello_world/index.html">6. Hello World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">7. Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../network-namespace/index.html">8. Network namespace</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">1. Introduction to this book</a></li>
+<li><a class="reference internal" href="#introduction-to-containers">2. Introduction to containers</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../../../index.html" title="Previous Chapter: A book about containers"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; A book about ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../introduction-to-namespaces/index.html" title="Next Chapter: 3. Introduction to namespaces"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">3. Introducti... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="introduction-to-this-book">
+<h1>1. Introduction to this book<a class="headerlink" href="#introduction-to-this-book" title="Permalink to this headline">¶</a></h1>
+<p>This project started out when a group of people from Pelagicore went to FOSDEM
+2016. We saw several very interesting talks on containers and talked among
+ourselves about it and realized that we actually have quite a lot of experience
+with the subject among ourselves. We decided to try and contribute into this book
+and write something that may be of use to the community.</p>
+<p>Relatively recent development in the Linux community has made containers a more
+and more viable option as a full virtualization replacement and the number of
+use cases has grown widely. This book will go on to explore and describe what
+containers really are, the general concepts and techniques used in detail and
+what tools are actually using these underlying technologies to do their
+different jobs. We will also discuss the security implications of using
+namespaces as compared to other security techniques traditionally employed to
+either make a secure system or where it is a secondary benefit.</p>
+<p>The book will try to be as pedagogical as possible basing a lot of the
+learning on examples interwoven with theoretical information. Some of the
+technical underpinnings such as the kernel APIs are constantly under
+development so there may be issues running everything. Whenever we are aware of
+an API that is unstable or may be up for revision we will try to indicate this,
+alternatively if possible we will show how to perform a given task before and
+after an API change.</p>
+</div>
+<div class="section" id="introduction-to-containers">
+<h1>2. Introduction to containers<a class="headerlink" href="#introduction-to-containers" title="Permalink to this headline">¶</a></h1>
+<p>Linux containers are generally based on two underpinning technologies provided
+by the Linux kernel, the namespaces and cgroups. These are presented in depth in
+separate chapters.</p>
+<p>A container can have varying degrees of separation from the main system, a
+separate file system, separate networking stack, separate IPC mechanism, Process
+ID Space, and so on. This separation usually means that the container will need
+to have everything available inside the container to execute. For example, if
+you write a bash script that will perform some network setup before it actually
+sets up a service, then all the tools that bash script tries to use must be
+available inside the container.</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
+      Last updated on Mar 29, 2016.<br/>
+    </p>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46104829-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
