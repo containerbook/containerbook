@@ -20,8 +20,9 @@ which is what we will start with in this introductory chapter.
 
 .. _viewing-namespaces:
 
+------------------------------
 Viewing the current namespaces
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 All processes start out in the same namespace, which is the same as saying that
 starting out, there are no namespaces. The namespace a process currently
@@ -110,8 +111,9 @@ namespace, but we will leave those for a later chapter. it should however now
 be clear how namespaces are used to limit the view of certain resources, and
 how they are created.
 
+------------------
 Pinning namespaces
-^^^^^^^^^^^^^^^^^^
+------------------
 
 A namespace remains alive as long as one of the following conditions is fulfilled:
 
@@ -169,8 +171,9 @@ It is however not very exiting to be able to create these persistent namespaces
 without having any use for them, therefore the next section will introduce
 entering and sharing namespaces between processes.
 
+-------------------
 Entering namespaces
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 Once a namespace has been pinned, or otherwise shared, it can be entered by
 other processes using the `setns` system call. An example of some C code using
@@ -284,9 +287,9 @@ As we can see in the last example, the `veth0` and `veth1` are indeed visible
 in the new shell after we have issued the `setns` system call using the
 `nsenter` utility.
 
-
+---------------------------------
 Destroying and leaving namespaces
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------
 
 .. todo:: Describe how removing bind mounts destroys pinned namespaces, and how
           exiting a namespace suffices to destroy it if it has not been pinned.
