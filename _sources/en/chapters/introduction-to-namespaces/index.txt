@@ -73,13 +73,13 @@ view.
 Creating new namespaces
 -----------------------
 
-The question is then, how do we create a new namespace? There are two ways, one is used when creating a new namespace for the current process, and one is used when creating a new namespace while spawging a new process. Both of these methods work in very similar ways.
+The question is then, how do we create a new namespace? There are two ways, one is used when creating a new namespace for the current process, and one is used when creating a new namespace while spawning a new process. Both of these methods work in very similar ways.
 
 If you are familiar with the Linux API, you may be familiar with the `clone` system call. This system call is used to implement the higher level `fork` function in glibc. The `fork` function will call the `clone` system call using a pre-defined set of parameters, such as passing open file descriptors, and open message queue descriptors to the child. Notably, when using the `fork` function, the memory space of the parent process is treated as `copy-on-write` in the child process, when using clone however, the parent's memory space can be marked as writable in the child, thereby allowing the creation of threads.
 
 As you may have guessed, in addition to parameters regarding sharing of memory space and different kinds of file descriptors, the `clone` system call features parameters for controlling sharing of namespaces. As mentioned, there are two ways to create namespaces, and one is using the `clone` system call, while the other is using the `unshare` system call. `clone` is used when creating new processes, and `unshare` when manipulating the current process.
 
-The parameter names for `clone` and `unshare` are the same. In the examples below, you will see that the `unnshare` system call uses parameters, or flags, prefixed with `CLONE_`, and this is becase these parameters originate from the `clone` system call.
+The parameter names for `clone` and `unshare` are the same. In the examples below, you will see that the `unshare` system call uses parameters, or flags, prefixed with `CLONE_`, and this is because these parameters originate from the `clone` system call.
 
 The name `unshare` may seem unintuitive, but the name comes from the fact that
 namespaces are created when processes exit their current namespace, thereby
@@ -122,7 +122,7 @@ namespace, but we will leave those for a later chapter. it should however now
 be clear how namespaces are used to limit the view of certain resources, and
 how they are created.
 
-As mentioned earlier, namespaces can also be created using the `clone` system call, and below is an example which uses the `clone` system call rather than the `unshare` system call. As with the previous example, the `ip` tool can be used to list the network interfaces. The output should be the same as with the previous example, and hsa therefor been omitted.
+As mentioned earlier, namespaces can also be created using the `clone` system call, and below is an example which uses the `clone` system call rather than the `unshare` system call. As with the previous example, the `ip` tool can be used to list the network interfaces. The output should be the same as with the previous example, and has therefore been omitted.
 
 .. literalinclude:: code-samples/unshare_clone.c
     :language: c
