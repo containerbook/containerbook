@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>5. The network namespace &mdash; Containter Book v0.1</title>
+    <title>5. Network namespace &mdash; Containter Book v0.1</title>
     
     <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -70,16 +70,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction/index.html#introduction-to-containers">2. Introduction to containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">3. Introduction to namespaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">4. The IPC namespace</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. The network namespace</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Network namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">6. The mount namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">7. The PID namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">8. The user namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">9. The UTS namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">10. Introduction to cgroups</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../history/index.html">11. History of containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hello_world/index.html">12. Hello World</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../security/index.html">13. Security</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../network-namespace/index.html">14. Network namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">12. Security</a></li>
 </ul>
 </ul>
 </li>
@@ -93,7 +91,11 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">5. The network namespace</a></li>
+<li><a class="reference internal" href="#">5. Network namespace</a><ul>
+<li><a class="reference internal" href="#a-simple-example">5.1. A simple example</a></li>
+<li><a class="reference internal" href="#a-more-complex-example">5.2. A more complex example</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -137,8 +139,111 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="the-network-namespace">
-<h1>5. The network namespace<a class="headerlink" href="#the-network-namespace" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="network-namespace">
+<h1>5. Network namespace<a class="headerlink" href="#network-namespace" title="Permalink to this headline">¶</a></h1>
+<p>Network namespaces are used to separate groups of network interfaces and
+network routing tables. These namespaces can be used to give some application a
+limited view of the networking resources of a physical machine.</p>
+<p>There are two tools available for working with network namespaces; the kernel
+APIs and command line tools which provide an abstraction layer above the kernel
+APIs.</p>
+<div class="section" id="a-simple-example">
+<h2>5.1. A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>In this example we will create a network namespace, and connect that namespace
+to the rest of the system using virtual Ethernet devices.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Create a new network namespace called &#39;isolated&#39;</span>
+ip netns add isolated
+
+<span class="c1"># Create a new pair of veth devices, called eth0 and veth1</span>
+ip link add veth0 <span class="nb">type</span> veth peer name veth1
+
+<span class="c1"># Set up network device outside the namespace</span>
+ip address add 10.10.10.2/24 dev veth1
+ip link <span class="nb">set</span> veth1 up
+ip route add default dev veth1
+
+<span class="c1"># Assign the veth0 device to the &#39;isolated&#39; namespace</span>
+ip link <span class="nb">set</span> veth0 netns isolated
+
+<span class="c1"># Set up the device within the &#39;isolated&#39; namespace</span>
+ip netns <span class="nb">exec</span> isolated ip address add 10.10.10.1/24 dev veth0
+ip netns <span class="nb">exec</span> isolated ip link <span class="nb">set</span> veth0 up
+ip netns <span class="nb">exec</span> isolated ip route add default dev veth0
+
+<span class="c1"># Execute a ping from within the namespace</span>
+ip netns <span class="nb">exec</span> isolated ping -c <span class="m">3</span> 10.10.10.2
+
+<span class="c1"># Clean up again</span>
+ip netns delete isolated
+</pre></div>
+</td></tr></table></div>
+<p>This entire example uses the <cite>ip</cite> tool to configure network devices within and
+outside the network namespace. We start out by creating the actual namespace
+itself, using <cite>ip netns add</cite> the <cite>netns</cite> sub command of <cite>ip</cite> tells the tool
+that we are working with namespaces.</p>
+<p>The <cite>link</cite> sub command is used to create a virtual Ethernet device pair. The
+two endpoints are called <cite>veth0</cite> and <cite>veth1</cite>. We will put one of these devices
+on either side of the namespace barrier.</p>
+<p>Next, we configure the &#8220;external&#8221; <cite>veth1</cite> device with an appropriate IP
+address, default route, and finally bring it online. This is very similar to
+the operations you would perform on a regular Ethernet, or other network
+device, in our case the device is entirely virtual however.</p>
+<p>Now comes the interesting part, using the <cite>ip link set veth0 netns isolated</cite>
+command, we move the veth0 device into the <cite>isolated</cite> network namespace. This
+device is no longer reachable from outside the namespace we just created. The
+connection between <cite>veth0</cite> and <cite>veth1</cite> established when creating the devices
+using <cite>ip link add</cite> still exists however, so communication between the two
+devices is still entirely possible, as we shall see next.</p>
+<p>Using the <cite>netns exec</cite> sub command, we can execute arbitrary commands within
+our network namespace. We now issue similar commands as those we saw for the
+<cite>veth1</cite> device, only inside the network namespace.</p>
+<p>It is easy to believe we can only issue <cite>ip</cite> related commands, but this is not
+the case. To test the connectivity between veth0 and veth1 we can use the
+<cite>ping</cite> command to send a few ICMP packets which will echo back and forth,
+demonstrating we indeed have connectivity.</p>
+<p>The final step in this example is to tear down the namespace again, leaving our
+system in the same state it was in before this exercise started. Both <cite>veth0</cite>
+and <cite>veth1</cite> are destroyed as a consequence of deleting the namespace. <cite>veth0</cite>
+is destroyed since it is no longer reachable once the namespace ceases to
+exist, and <cite>veth1</cite> is destroyed once its only endpoint is lost.</p>
+</div>
+<div class="section" id="a-more-complex-example">
+<h2>5.2. A more complex example<a class="headerlink" href="#a-more-complex-example" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Here I would like to build on the last example, but connect the
+external veth1 to an external network (internet?), and I would also like to
+create some interesting routing table within the container to show that
+this table is kept separate from the rest of the system.</p>
+</div>
+</div>
 </div>
 
 
