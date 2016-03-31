@@ -80,15 +80,15 @@ methods work in very similar ways.
 
 If you are familiar with the Linux API, you may be familiar with the :linuxman:`clone(2)` system call. This system call is used to implement the higher level :linuxman:`fork(2)` function in glibc. The :linuxman:`fork(2)` function will call the :linuxman:`clone(8)` system call using a pre-defined set of parameters, such as passing open file descriptors, and open message queue descriptors to the child. Notably, when using the :linuxman:`fork(2)` function, the memory space of the parent process is treated as `copy-on-write` in the child process, when using clone however, the parent's memory space can be marked as writable in the child, thereby allowing the creation of threads.
 
-As you may have guessed, in addition to parameters regarding sharing of memory space and different kinds of file descriptors, the :linuxman:`clone(8)` system call features parameters for controlling sharing of namespaces. As mentioned, there are two ways to create namespaces, and one is using the :linuxman:`clone(8)` system call, while the other is using the `unshare` system call. :linuxman:`clone(8)` is used when creating new processes, and `unshare` when manipulating the current process.
+As you may have guessed, in addition to parameters regarding sharing of memory space and different kinds of file descriptors, the :linuxman:`clone(8)` system call features parameters for controlling sharing of namespaces. As mentioned, there are two ways to create namespaces, and one is using the :linuxman:`clone(8)` system call, while the other is using the :linuxmn:`unshare(2)` system call. :linuxman:`clone(8)` is used when creating new processes, and :linuxman:`unshare(2)` when manipulating the current process.
 
-The parameter names for :linuxman:`clone(8)` and `unshare` are the same. In the examples below, you will see that the `unshare` system call uses parameters, or flags, prefixed with `CLONE_`, and this is because these parameters originate from the :linuxman:`clone(8)` system call.
+The parameter names for :linuxman:`clone(8)` and :linuxman:`unshare(2)` are the same. In the examples below, you will see that the :linuxman:`unshare(2)` system call uses parameters, or flags, prefixed with `CLONE_`, and this is because these parameters originate from the :linuxman:`clone(8)` system call.
 
-The name `unshare` may seem unintuitive, but the name comes from the fact that
+The name "unshare" may seem unintuitive, but the name comes from the fact that
 namespaces are created when processes exit their current namespace, thereby
 creating a new one.
 
-Below is some example code which first calls the `unshare` system call on the
+Below is some example code which first calls the :linuxman:`unshare(2)` system call on the
 network namespace, and then proceeds to launch an executable within the new
 namespace.
 
@@ -126,7 +126,7 @@ namespace, but we will leave those for a later chapter. it should however now
 be clear how namespaces are used to limit the view of certain resources, and
 how they are created.
 
-As mentioned earlier, namespaces can also be created using the :linuxman:`clone(8)` system call, and below is an example which uses the :linuxman:`clone(8)` system call rather than the `unshare` system call. As with the previous example, the :linuxman:`ip(8)` tool can be used to list the network interfaces. The output should be the same as with the previous example, and has therefore been omitted.
+As mentioned earlier, namespaces can also be created using the :linuxman:`clone(8)` system call, and below is an example which uses the :linuxman:`clone(8)` system call rather than the :linuxman:`unshare(2)` system call. As with the previous example, the :linuxman:`ip(8)` tool can be used to list the network interfaces. The output should be the same as with the previous example, and has therefore been omitted.
 
 .. literalinclude:: code-samples/unshare_clone.c
     :language: c
