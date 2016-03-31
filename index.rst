@@ -35,9 +35,7 @@ We are heavily working on this book and that means several things:
     en/chapters/the-uts-namespace/index
     en/chapters/introduction-to-cgroups/index
     en/chapters/history/index
-    en/chapters/hello_world/index
     en/chapters/security/index
-    en/chapters/network-namespace/index
 
 .. rubric:: Chapter Queue
 
