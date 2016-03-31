@@ -197,10 +197,13 @@ view.</p>
 </div>
 <div class="section" id="creating-new-namespaces">
 <h2>3.3. Creating new namespaces<a class="headerlink" href="#creating-new-namespaces" title="Permalink to this headline">¶</a></h2>
-<p>The question is then, how do we create a new namespace? There are two ways, one is used when creating a new namespace for the current process, and one is used when creating a new namespace while spawning a new process. Both of these methods work in very similar ways.</p>
-<p>If you are familiar with the Linux API, you may be familiar with the <cite>clone</cite> system call. This system call is used to implement the higher level <cite>fork</cite> function in glibc. The <cite>fork</cite> function will call the <cite>clone</cite> system call using a pre-defined set of parameters, such as passing open file descriptors, and open message queue descriptors to the child. Notably, when using the <cite>fork</cite> function, the memory space of the parent process is treated as <cite>copy-on-write</cite> in the child process, when using clone however, the parent&#8217;s memory space can be marked as writable in the child, thereby allowing the creation of threads.</p>
-<p>As you may have guessed, in addition to parameters regarding sharing of memory space and different kinds of file descriptors, the <cite>clone</cite> system call features parameters for controlling sharing of namespaces. As mentioned, there are two ways to create namespaces, and one is using the <cite>clone</cite> system call, while the other is using the <cite>unshare</cite> system call. <cite>clone</cite> is used when creating new processes, and <cite>unshare</cite> when manipulating the current process.</p>
-<p>The parameter names for <cite>clone</cite> and <cite>unshare</cite> are the same. In the examples below, you will see that the <cite>unshare</cite> system call uses parameters, or flags, prefixed with <cite>CLONE_</cite>, and this is because these parameters originate from the <cite>clone</cite> system call.</p>
+<p>The question is then, how do we create a new namespace? There are two ways, one
+is used when creating a new namespace for the current process, and one is used
+when creating a new namespace while spawning a new process. Both of these
+methods work in very similar ways.</p>
+<p>If you are familiar with the Linux API, you may be familiar with the <a class="reference external" href="http://linux.die.net/man/2/clone">clone(2)</a> system call. This system call is used to implement the higher level <a class="reference external" href="http://linux.die.net/man/2/fork">fork(2)</a> function in glibc. The <a class="reference external" href="http://linux.die.net/man/2/fork">fork(2)</a> function will call the <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> system call using a pre-defined set of parameters, such as passing open file descriptors, and open message queue descriptors to the child. Notably, when using the <a class="reference external" href="http://linux.die.net/man/2/fork">fork(2)</a> function, the memory space of the parent process is treated as <cite>copy-on-write</cite> in the child process, when using clone however, the parent&#8217;s memory space can be marked as writable in the child, thereby allowing the creation of threads.</p>
+<p>As you may have guessed, in addition to parameters regarding sharing of memory space and different kinds of file descriptors, the <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> system call features parameters for controlling sharing of namespaces. As mentioned, there are two ways to create namespaces, and one is using the <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> system call, while the other is using the <cite>unshare</cite> system call. <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> is used when creating new processes, and <cite>unshare</cite> when manipulating the current process.</p>
+<p>The parameter names for <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> and <cite>unshare</cite> are the same. In the examples below, you will see that the <cite>unshare</cite> system call uses parameters, or flags, prefixed with <cite>CLONE_</cite>, and this is because these parameters originate from the <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> system call.</p>
 <p>The name <cite>unshare</cite> may seem unintuitive, but the name comes from the fact that
 namespaces are created when processes exit their current namespace, thereby
 creating a new one.</p>
@@ -258,8 +261,9 @@ namespace.</p>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-<p>If we use the above code to launch a bash shell, we can use the <cite>ip</cite> tool to
-view the available network devices within our new network namespace.</p>
+<p>If we use the above code to launch a bash shell, we can use the
+<a class="reference external" href="http://linux.die.net/man/8/ip">ip(8)</a> tool to view the available network devices within our new
+network namespace.</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -295,7 +299,7 @@ device is visible. There are many interesting things to do with the networking
 namespace, but we will leave those for a later chapter. it should however now
 be clear how namespaces are used to limit the view of certain resources, and
 how they are created.</p>
-<p>As mentioned earlier, namespaces can also be created using the <cite>clone</cite> system call, and below is an example which uses the <cite>clone</cite> system call rather than the <cite>unshare</cite> system call. As with the previous example, the <cite>ip</cite> tool can be used to list the network interfaces. The output should be the same as with the previous example, and has therefore been omitted.</p>
+<p>As mentioned earlier, namespaces can also be created using the <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> system call, and below is an example which uses the <a class="reference external" href="http://linux.die.net/man/8/clone">clone(8)</a> system call rather than the <cite>unshare</cite> system call. As with the previous example, the <a class="reference external" href="http://linux.die.net/man/8/ip">ip(8)</a> tool can be used to list the network interfaces. The output should be the same as with the previous example, and has therefore been omitted.</p>
 <div class="highlight-c" id="unshare-clone-example"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -475,8 +479,8 @@ namespace to a file in <cite>/tmp</cite>. The shell in which we unshared the net
 namespace can now be exited, thereby terminating the process which created the
 namespace, but the namespace is still alive, due to the bind mount.</p>
 <p>We can see that the namespace survives even though the creating process has
-exited by issuing <cite>mount</cite>. This will show a file system of type <cite>nsfs</cite> mounted
-on <cite>/tmp/my_network_ns</cite>:</p>
+exited by issuing <a class="reference external" href="http://linux.die.net/man/8/mount">mount(8)</a>. This will show a file system of type <cite>nsfs</cite>
+mounted on <cite>/tmp/my_network_ns</cite>:</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># mount</span>
