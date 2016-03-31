@@ -11,6 +11,7 @@ before_install:
     - sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
     - sudo apt-get install -y --no-install-recommends aspell aspell-en
 script:
+- pip install sphinxcontrib-manpage
 - pip install sphinx sphinx-bootstrap-theme
 - mkdir -p _build/latex/
 - cd _build/latex/

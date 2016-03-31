@@ -34,7 +34,8 @@ extensions = [
     'sphinx.ext.extlinks',
     'sphinx.ext.graphviz',
     'youtube',
-    'issues',
+#    'issues',
+    'sphinxcontrib.manpage'
     ]
 
 ### Issue Exentsion
