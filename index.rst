@@ -27,6 +27,12 @@ We are heavily working on this book and that means several things:
 
     en/chapters/introduction/index
     en/chapters/introduction-to-namespaces/index
+    en/chapters/the-ipc-namespace/index
+    en/chapters/the-network-namespace/index
+    en/chapters/the-mount-namespace/index
+    en/chapters/the-pid-namespace/index
+    en/chapters/the-user-namespace/index
+    en/chapters/the-uts-namespace/index
     en/chapters/introduction-to-cgroups/index
     en/chapters/history/index
     en/chapters/hello_world/index
