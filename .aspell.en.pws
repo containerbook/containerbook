@@ -1,8 +1,9 @@
-personal_ws-1.1 en 76 
+personal_ws-1.1 en 79 
 aa
 KiB
 symlink
 ae
+untrusted
 inet
 bb
 noqueue
@@ -50,8 +51,8 @@ netns
 tmp
 prefixlen
 img
-online
 linuxman
+online
 namespaces
 nsenter
 mq
@@ -67,6 +68,7 @@ netmask
 loopback
 ifconfig
 setns
+svipc
 unintuitive
 internet
 wildcard
@@ -75,3 +77,4 @@ unshared
 mnt
 qdisc
 glibc
+POSIX
