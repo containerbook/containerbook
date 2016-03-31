@@ -3,8 +3,6 @@
 A book about containers
 =======================
 
-.. issues:: master
-
 Last Build: |today|
 
 .. raw:: html
