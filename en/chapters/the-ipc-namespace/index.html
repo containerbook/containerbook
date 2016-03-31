@@ -163,6 +163,22 @@ implemented using the IPC namespace. Each IPC namespace creates a separate
 group of IPC mechanisms, where each group is completely isolated from the
 others. Processes participating in the same namespace have access to the same
 IPC resources within the namespace.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add example listing available IPCs, the <a class="reference external" href="http://linux.die.net/man/1/ipcs">ipcs(1)</a> command
+can be used to list IPCs. This command should be run inside and
+outside a namespace, observing the differences.</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add an example where a message is passed through a message queue
+between two processes in the same namespace, and then show what
+happens when the same code is used in different namespaces.</p>
+</div>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add an example of nested IPC namespaces</p>
+</div>
 </div>
 
 

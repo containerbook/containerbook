@@ -29,3 +29,13 @@ implemented using the IPC namespace. Each IPC namespace creates a separate
 group of IPC mechanisms, where each group is completely isolated from the
 others. Processes participating in the same namespace have access to the same
 IPC resources within the namespace.
+
+.. todo:: Add example listing available IPCs, the :linuxman:`ipcs(1)` command
+          can be used to list IPCs. This command should be run inside and
+          outside a namespace, observing the differences.
+
+.. todo:: Add an example where a message is passed through a message queue
+          between two processes in the same namespace, and then show what
+          happens when the same code is used in different namespaces.
+
+.. todo:: Add an example of nested IPC namespaces
