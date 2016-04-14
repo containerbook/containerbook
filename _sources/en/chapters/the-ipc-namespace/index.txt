@@ -30,9 +30,56 @@ group of IPC mechanisms, where each group is completely isolated from the
 others. Processes participating in the same namespace have access to the same
 IPC resources within the namespace.
 
-.. todo:: Add example listing available IPCs, the :linuxman:`ipcs(1)` command
-          can be used to list IPCs. This command should be run inside and
-          outside a namespace, observing the differences.
+------------------
+Listing namespaces
+------------------
+
+As a first example, we will try to list the available IPC channels available in
+the global namespace, and once the IPC namespace has been unshared.
+
+In the example below, the :linuxman:`ipcs(1)` command is used to list the
+available IPC channels. In the output of the first invocation, we can see that
+there are several "shared memory segments" mapped. These are memory areas where
+several processes share a common view of a block of memory. If one process
+writes to the memory, the other process(es) will see these changes, and vice
+versa. This sort of primitive is very powerful for implementing communication
+between processes.
+
+.. code-block:: bash
+    :linenos:
+
+    $ sudo ipcs
+    ------ Message Queues --------
+    key        msqid      owner      perms      used-bytes   messages
+
+    ------ Shared Memory Segments --------
+    key        shmid      owner      perms      bytes      nattch     status
+    0x00000000 1441792    jonte      600        393216     2          dest
+    0x00000000 15990826   jonte      600        50688      2          dest
+    0x00000000 16023595   jonte      600        72512      2          dest
+    0x00000000 16678956   jonte      600        118272     2          dest
+    0x00000000 18808877   jonte      600        870240     2          dest
+
+    ------ Semaphore Arrays --------
+    key        semid      owner      perms      nsems
+
+And now, run the same command in a new IPC namespace:
+
+.. code-block:: bash
+    :linenos:
+
+    $ sudo unshare -i ipcs
+    ------ Message Queues --------
+    key        msqid      owner      perms      used-bytes   messages
+
+    ------ Shared Memory Segments --------
+    key        shmid      owner      perms      bytes      nattch     status
+
+    ------ Semaphore Arrays --------
+    key        semid      owner      perms      nsems
+
+As you may have guessed, when entering a new IPC namespace, the IPC channels
+previously available become unavailable.
 
 .. todo:: Add an example where a message is passed through a message queue
           between two processes in the same namespace, and then show what

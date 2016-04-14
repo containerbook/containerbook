@@ -9,7 +9,7 @@
     
     <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/sandstone/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.6/sandstone/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Containter Book v0.1" href="../../../index.html" />
     <link rel="next" title="5. Network namespace" href="../the-network-namespace/index.html" />
@@ -91,7 +91,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">4. The IPC namespace</a></li>
+<li><a class="reference internal" href="#">4. The IPC namespace</a><ul>
+<li><a class="reference internal" href="#listing-namespaces">4.1. Listing namespaces</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -161,21 +164,78 @@ implemented using the IPC namespace. Each IPC namespace creates a separate
 group of IPC mechanisms, where each group is completely isolated from the
 others. Processes participating in the same namespace have access to the same
 IPC resources within the namespace.</p>
+<div class="section" id="listing-namespaces">
+<h2>4.1. Listing namespaces<a class="headerlink" href="#listing-namespaces" title="Permalink to this headline">¶</a></h2>
+<p>As a first example, we will try to list the available IPC channels available in
+the global namespace, and once the IPC namespace has been unshared.</p>
+<p>In the example below, the <a class="reference external" href="http://linux.die.net/man/1/ipcs">ipcs(1)</a> command is used to list the
+available IPC channels. In the output of the first invocation, we can see that
+there are several &#8220;shared memory segments&#8221; mapped. These are memory areas where
+several processes share a common view of a block of memory. If one process
+writes to the memory, the other process(es) will see these changes, and vice
+versa. This sort of primitive is very powerful for implementing communication
+between processes.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ sudo ipcs
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status
+0x00000000 <span class="m">1441792</span>    jonte      <span class="m">600</span>        <span class="m">393216</span>     <span class="m">2</span>          dest
+0x00000000 <span class="m">15990826</span>   jonte      <span class="m">600</span>        <span class="m">50688</span>      <span class="m">2</span>          dest
+0x00000000 <span class="m">16023595</span>   jonte      <span class="m">600</span>        <span class="m">72512</span>      <span class="m">2</span>          dest
+0x00000000 <span class="m">16678956</span>   jonte      <span class="m">600</span>        <span class="m">118272</span>     <span class="m">2</span>          dest
+0x00000000 <span class="m">18808877</span>   jonte      <span class="m">600</span>        <span class="m">870240</span>     <span class="m">2</span>          dest
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems
+</pre></div>
+</td></tr></table></div>
+<p>And now, run the same command in a new IPC namespace:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ sudo unshare -i ipcs
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems
+</pre></div>
+</td></tr></table></div>
+<p>As you may have guessed, when entering a new IPC namespace, the IPC channels
+previously available become unavailable.</p>
 <div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Add example listing available IPCs, the <a class="reference external" href="http://linux.die.net/man/1/ipcs">ipcs(1)</a> command
-can be used to list IPCs. This command should be run inside and
-outside a namespace, observing the differences.</p>
-</div>
-<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">Add an example where a message is passed through a message queue
 between two processes in the same namespace, and then show what
 happens when the same code is used in different namespaces.</p>
 </div>
-<div class="admonition-todo admonition" id="index-2">
+<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">Add an example of nested IPC namespaces</p>
+</div>
 </div>
 </div>
 
@@ -193,7 +253,7 @@ happens when the same code is used in different namespaces.</p>
     </p>
     <p>
         &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
-      Last updated on Mar 31, 2016.<br/>
+      Last updated on Apr 14, 2016.<br/>
     </p>
   </div>
 </footer>
