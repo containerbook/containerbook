@@ -98,6 +98,7 @@
 <li><a class="reference internal" href="#pinning-namespaces">3.4. Pinning namespaces</a></li>
 <li><a class="reference internal" href="#entering-namespaces">3.5. Entering namespaces</a></li>
 <li><a class="reference internal" href="#destroying-and-leaving-namespaces">3.6. Destroying and leaving namespaces</a></li>
+<li><a class="reference internal" href="#using-command-line-tools-for-managing-namespaces">3.7. Using command line tools for managing namespaces</a></li>
 </ul>
 </li>
 </ul>
@@ -738,6 +739,18 @@ in the new shell after we have issued the <cite>setns</cite> system call using t
 exiting a namespace suffices to destroy it if it has not been pinned.</p>
 </div>
 </div>
+<div class="section" id="using-command-line-tools-for-managing-namespaces">
+<h2>3.7. Using command line tools for managing namespaces<a class="headerlink" href="#using-command-line-tools-for-managing-namespaces" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>nsenter</cite> and <cite>unshare</cite> code examples above can easily be extended to
+handle the six currently available namespaces. We will leave these extensions
+up to the readder in order to not clutter the examples of this text, and
+instead point out that there are more complete implementations of these tools
+readily available. More concretely, please see the manual pages of
+<a class="reference external" href="http://linux.die.net/man/1/nsenter">nsenter(1)</a> and <a class="reference external" href="http://linux.die.net/man/1/unshare">unshare(1)</a>.</p>
+<p>Throughout the rest of this text, we will use the <a class="reference external" href="http://linux.die.net/man/1/nsenter">nsenter(1)</a> and
+<a class="reference external" href="http://linux.die.net/man/1/unshare">unshare(1)</a> utilities rather than the ones implemented in the
+earlier examples.</p>
+</div>
 </div>
 
 
@@ -754,7 +767,7 @@ exiting a namespace suffices to destroy it if it has not been pinned.</p>
     </p>
     <p>
         &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
-      Last updated on Apr 14, 2016.<br/>
+      Last updated on Apr 16, 2016.<br/>
     </p>
   </div>
 </footer>

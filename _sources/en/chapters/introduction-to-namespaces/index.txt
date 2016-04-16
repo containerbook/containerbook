@@ -315,3 +315,18 @@ Destroying and leaving namespaces
 
 .. todo:: Describe how removing bind mounts destroys pinned namespaces, and how
           exiting a namespace suffices to destroy it if it has not been pinned.
+
+------------------------------------------------
+Using command line tools for managing namespaces
+------------------------------------------------
+
+The `nsenter` and `unshare` code examples above can easily be extended to
+handle the six currently available namespaces. We will leave these extensions
+up to the readder in order to not clutter the examples of this text, and
+instead point out that there are more complete implementations of these tools
+readily available. More concretely, please see the manual pages of
+:linuxman:`nsenter(1)` and :linuxman:`unshare(1)`.
+
+Throughout the rest of this text, we will use the :linuxman:`nsenter(1)` and
+:linuxman:`unshare(1)` utilities rather than the ones implemented in the
+earlier examples.
