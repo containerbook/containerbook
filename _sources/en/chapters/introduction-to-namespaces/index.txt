@@ -322,7 +322,7 @@ Using command line tools for managing namespaces
 
 The `nsenter` and `unshare` code examples above can easily be extended to
 handle the six currently available namespaces. We will leave these extensions
-up to the readder in order to not clutter the examples of this text, and
+up to the reader in order to not clutter the examples of this text, and
 instead point out that there are more complete implementations of these tools
 readily available. More concretely, please see the manual pages of
 :linuxman:`nsenter(1)` and :linuxman:`unshare(1)`.
