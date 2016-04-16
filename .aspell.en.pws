@@ -8,8 +8,8 @@ ae
 inet
 bb
 noqueue
-eth
 msqid
+eth
 inode
 rw
 namespace
