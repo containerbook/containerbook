@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>5. Network namespace &mdash; Containter Book v0.1</title>
+    <title>4. Network namespace &mdash; Containter Book v0.1</title>
     
     <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -29,8 +29,8 @@
     <script type="text/javascript" src="../../../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Containter Book v0.1" href="../../../index.html" />
-    <link rel="next" title="6. The mount namespace" href="../the-mount-namespace/index.html" />
-    <link rel="prev" title="4. The IPC namespace" href="../the-ipc-namespace/index.html" />
+    <link rel="next" title="5. The mount namespace" href="../the-mount-namespace/index.html" />
+    <link rel="prev" title="3. The IPC namespace" href="../the-ipc-namespace/index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -67,15 +67,15 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">1. Introduction to this book</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html#introduction-to-containers">2. Introduction to containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">3. Introduction to namespaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">4. The IPC namespace</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Network namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">6. The mount namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">7. The PID namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">8. The user namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">9. The UTS namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">10. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">2. Introduction to namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">3. The IPC namespace</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Network namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">5. The mount namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">6. The PID namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">7. The user namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">8. The UTS namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">9. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-containers/index.html">10. Introduction to containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../history/index.html">11. History of containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../security/index.html">12. Security</a></li>
 </ul>
@@ -91,9 +91,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">5. Network namespace</a><ul>
-<li><a class="reference internal" href="#a-simple-example">5.1. A simple example</a></li>
-<li><a class="reference internal" href="#a-more-complex-example">5.2. A more complex example</a></li>
+<li><a class="reference internal" href="#">4. Network namespace</a><ul>
+<li><a class="reference internal" href="#a-simple-example">4.1. A simple example</a></li>
+<li><a class="reference internal" href="#a-more-complex-example">4.2. A more complex example</a></li>
 </ul>
 </li>
 </ul>
@@ -105,11 +105,11 @@
               
                 
   <li>
-    <a href="../the-ipc-namespace/index.html" title="Previous Chapter: 4. The IPC namespace"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 4. The IPC na...</span>
+    <a href="../the-ipc-namespace/index.html" title="Previous Chapter: 3. The IPC namespace"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 3. The IPC na...</span>
     </a>
   </li>
   <li>
-    <a href="../the-mount-namespace/index.html" title="Next Chapter: 6. The mount namespace"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">6. The mount ... &raquo;</span>
+    <a href="../the-mount-namespace/index.html" title="Next Chapter: 5. The mount namespace"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">5. The mount ... &raquo;</span>
     </a>
   </li>
               
@@ -140,7 +140,7 @@
     <div class="col-md-12 content">
       
   <div class="section" id="network-namespace">
-<h1>5. Network namespace<a class="headerlink" href="#network-namespace" title="Permalink to this headline">¶</a></h1>
+<h1>4. Network namespace<a class="headerlink" href="#network-namespace" title="Permalink to this headline">¶</a></h1>
 <p>Network namespaces are used to separate groups of network interfaces and
 network routing tables. These namespaces can be used to give some application a
 limited view of the networking resources of a physical machine.</p>
@@ -148,7 +148,7 @@ limited view of the networking resources of a physical machine.</p>
 APIs and command line tools which provide an abstraction layer above the kernel
 APIs.</p>
 <div class="section" id="a-simple-example">
-<h2>5.1. A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<h2>4.1. A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
 <p>In this example we will create a network namespace, and connect that namespace
 to the rest of the system using virtual Ethernet devices.</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -235,7 +235,7 @@ is destroyed since it is no longer reachable once the namespace ceases to
 exist, and <cite>veth1</cite> is destroyed once its only endpoint is lost.</p>
 </div>
 <div class="section" id="a-more-complex-example">
-<h2>5.2. A more complex example<a class="headerlink" href="#a-more-complex-example" title="Permalink to this headline">¶</a></h2>
+<h2>4.2. A more complex example<a class="headerlink" href="#a-more-complex-example" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">Here I would like to build on the last example, but connect the
@@ -260,7 +260,7 @@ this table is kept separate from the rest of the system.</p>
     </p>
     <p>
         &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
-      Last updated on Apr 16, 2016.<br/>
+      Last updated on Apr 17, 2016.<br/>
     </p>
   </div>
 </footer>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>10. Introduction to containers &mdash; Containter Book v0.1</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.6/sandstone/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="Containter Book v0.1" href="../../../index.html" />
+    <link rel="next" title="11. History of containers" href="../history/index.html" />
+    <link rel="prev" title="9. Introduction to cgroups" href="../introduction-to-cgroups/index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          ContainerBook</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Chapters <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">1. Introduction to this book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">2. Introduction to namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">3. The IPC namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-network-namespace/index.html">4. Network namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">5. The mount namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">6. The PID namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">7. The user namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">8. The UTS namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">9. Introduction to cgroups</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">10. Introduction to containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history/index.html">11. History of containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">12. Security</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">10. Introduction to containers</a><ul>
+<li><a class="reference internal" href="#the-container-controller-software">10.1. The container controller software</a></li>
+<li><a class="reference internal" href="#building-and-deplying-software-in-a-container">10.2. Building and deplying software in a container</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../introduction-to-cgroups/index.html" title="Previous Chapter: 9. Introduction to cgroups"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 9. Introducti...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../history/index.html" title="Next Chapter: 11. History of containers"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">11. History o... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="introduction-to-containers">
+<h1>10. Introduction to containers<a class="headerlink" href="#introduction-to-containers" title="Permalink to this headline">¶</a></h1>
+<p>A container is an isolated area within the kernel, which is built using the
+namespaces and cgroups we have covered so far in this text. By combining
+several of the namespaces and cgroups, we can build very powerful isolation
+mechanisms.</p>
+<p>While namespaces and cgroups are (hopefully) tangible concepts, the container
+concept is a bit more abstract. For now, it should suffice to imagine a
+combination of the namespaces and cgroups already covered, and when discussin
+this combination, we will call it a &#8216;container&#8217;.</p>
+<p>When discussing containers from a user or administrator perspective, there are
+two common types of containers, the <cite>application containers</cite> and the <cite>system
+containers</cite>. <cite>Application containers</cite> are used to launch a specific application
+within a container, such as a web server, or a database server. A <cite>system
+container</cite> on the other hand is a container which is used to launch an entire
+Linux userpace, such as Debian.</p>
+<p>We will first cover application containers. We will enable all the namespaces,
+and demonstrate how this gives an application a very limited view of the host
+system, and we will also show two different deployment scenarions for
+applications running in containers.</p>
+<div class="section" id="the-container-controller-software">
+<h2>10.1. The container controller software<a class="headerlink" href="#the-container-controller-software" title="Permalink to this headline">¶</a></h2>
+<p>The container controller software is responsible for creating the necessary
+namespaces, and for creating a chroot jail for the application running in the
+container.</p>
+<p>In the example below, all the namespaces are enabled, a chroot is entered in a
+path supplied on the command line, and finally an executable is run inside the
+container.</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#define _GNU_SOURCE</span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sched.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+
+<span class="cm">/* Stack size for child process */</span>
+<span class="cp">#define STACK_SIZE (1024 * 1024)</span>
+
+<span class="cm">/* List of namesapces to unshare */</span>
+<span class="cp">#define UNSHARED_NAMESPACES     \</span>
+<span class="cp">    CLONE_NEWNET                \</span>
+<span class="cp">    | CLONE_NEWIPC              \</span>
+<span class="cp">    | CLONE_NEWPID              \</span>
+<span class="cp">    | CLONE_NEWUTS              \</span>
+<span class="cp">    | CLONE_NEWNS               \</span>
+<span class="cp">    | CLONE_NEWUSER</span>
+
+<span class="kt">char</span> <span class="o">*</span><span class="n">newroot</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">cmd</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="kt">char</span> <span class="o">**</span><span class="n">args</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+<span class="cm">/* This function will be called in the &#39;cloned&#39; process */</span>
+<span class="kt">int</span> <span class="nf">child_func</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
+
+    <span class="cm">/* Change the root directory */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">status</span> <span class="o">=</span> <span class="n">chroot</span><span class="p">(</span><span class="n">newroot</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;chroot&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Execute command with namespace unshared */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">status</span> <span class="o">=</span> <span class="n">execv</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">args</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;exec&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">stack</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">stack_top</span><span class="p">;</span>
+    <span class="kt">pid_t</span> <span class="n">child_pid</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Usage: %s &lt;new root&gt; &lt;command&gt; [args .. ]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Set up the parameters used when launching the container */</span>
+    <span class="n">newroot</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="n">argc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">));</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span><span class="p">;</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="n">args</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">argv</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="n">argc</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">));</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;malloc&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Allocate some memory for the child stack */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">stack</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">STACK_SIZE</span><span class="p">))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;malloc&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">stack_top</span> <span class="o">=</span> <span class="n">stack</span> <span class="o">+</span> <span class="n">STACK_SIZE</span><span class="p">;</span> <span class="cm">/* Stack grows downward */</span>
+
+    <span class="cm">/* Clone with a new network namespace */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">child_pid</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">child_func</span><span class="p">,</span>
+                           <span class="n">stack_top</span><span class="p">,</span>
+                           <span class="n">UNSHARED_NAMESPACES</span> <span class="o">|</span> <span class="n">SIGCHLD</span><span class="p">,</span>
+                           <span class="n">argv</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;clone&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Wait for child to exit */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">waitpid</span><span class="p">(</span><span class="n">child_pid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">&quot;waitpid&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="building-and-deplying-software-in-a-container">
+<h2>10.2. Building and deplying software in a container<a class="headerlink" href="#building-and-deplying-software-in-a-container" title="Permalink to this headline">¶</a></h2>
+<p>It may be tempting to just copy some binary (/bin/bash for example) into a
+sysroot and attempt to launch <cite>contejner</cite> on that path. Unfortunately, this
+will have limited success however. It is important to remember that the root
+file system of the container will be fully separate from the host file systems,
+and thus, while the <cite>bash</cite> binary will be available within the container, the
+runtime library dependencies will not.</p>
+<p>On my system, these are the runtime dependencies for <cite>/bin/bash</cite>:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span> jonte@Thinkpad:~/containerbook$ /lib64/ld-linux-x86-64.so.2 --list /bin/bash
+        linux-vdso.so.1 <span class="o">(</span>0x00007ffc812ad000<span class="o">)</span>
+        libncurses.so.5 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libncurses.so.5 <span class="o">(</span>0x00007f87f3ed8000<span class="o">)</span>
+        libtinfo.so.5 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libtinfo.so.5 <span class="o">(</span>0x00007f87f3cae000<span class="o">)</span>
+        libdl.so.2 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libdl.so.2 <span class="o">(</span>0x00007f87f3aa9000<span class="o">)</span>
+        libc.so.6 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libc.so.6 <span class="o">(</span>0x00007f87f3705000<span class="o">)</span>
+        /lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00005625bb3f6000<span class="o">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>So, in order to run <cite>/bin/bash</cite> within a container, we would also need ot copy
+these runtime dependencies into the container (and also any runtime
+dependencies of these libraries).</p>
+<p>For the purposes of this text, and in order to proceed a bit faster, we will
+opt for a faster demonstration, which is <cite>static linking</cite> - meaning that we
+include all the runtime dependencies in the executable we are building -
+thereby removing the need of copying so many files.</p>
+<p>Consider the following simple C program:</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;Hello world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>And the following command to build it:</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">-</span><span class="k">static</span> <span class="n">helloworld</span> <span class="o">-</span><span class="n">o</span> <span class="n">helloworld</span>
+</pre></div>
+</td></tr></table></div>
+<p>This will produce a helloworld binary, which is statically linked, and thus can
+be run as-is within a container, as such:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># mkdir -p /tmp/container_root</span>
+<span class="c1"># cp helloworld /tmp/container_root</span>
+<span class="c1"># sudo contejner /tmp/container_root /helloworld</span>
+Hello world
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
+      Last updated on Apr 17, 2016.<br/>
+    </p>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46104829-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../../../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Containter Book v0.1" href="../../../index.html" />
-    <link rel="next" title="3. Introduction to namespaces" href="../introduction-to-namespaces/index.html" />
+    <link rel="next" title="2. Introduction to namespaces" href="../introduction-to-namespaces/index.html" />
     <link rel="prev" title="A book about containers" href="../../../index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -67,15 +67,15 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. Introduction to this book</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#introduction-to-containers">2. Introduction to containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">3. Introduction to namespaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">4. The IPC namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-network-namespace/index.html">5. Network namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">6. The mount namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">7. The PID namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">8. The user namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">9. The UTS namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">10. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">2. Introduction to namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">3. The IPC namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-network-namespace/index.html">4. Network namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">5. The mount namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">6. The PID namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">7. The user namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">8. The UTS namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">9. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-containers/index.html">10. Introduction to containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../history/index.html">11. History of containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../security/index.html">12. Security</a></li>
 </ul>
@@ -92,7 +92,6 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">1. Introduction to this book</a></li>
-<li><a class="reference internal" href="#introduction-to-containers">2. Introduction to containers</a></li>
 </ul>
 </ul>
 </li>
@@ -106,7 +105,7 @@
     </a>
   </li>
   <li>
-    <a href="../introduction-to-namespaces/index.html" title="Next Chapter: 3. Introduction to namespaces"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">3. Introducti... &raquo;</span>
+    <a href="../introduction-to-namespaces/index.html" title="Next Chapter: 2. Introduction to namespaces"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">2. Introducti... &raquo;</span>
     </a>
   </li>
               
@@ -159,19 +158,6 @@ an API that is unstable or may be up for revision we will try to indicate this,
 alternatively if possible we will show how to perform a given task before and
 after an API change.</p>
 </div>
-<div class="section" id="introduction-to-containers">
-<h1>2. Introduction to containers<a class="headerlink" href="#introduction-to-containers" title="Permalink to this headline">¶</a></h1>
-<p>Linux containers are generally based on two underpinning technologies provided
-by the Linux kernel, the namespaces and cgroups. These are presented in depth in
-separate chapters.</p>
-<p>A container can have varying degrees of separation from the main system, a
-separate file system, separate networking stack, separate IPC mechanism, Process
-ID Space, and so on. This separation usually means that the container will need
-to have everything available inside the container to execute. For example, if
-you write a bash script that will perform some network setup before it actually
-sets up a service, then all the tools that bash script tries to use must be
-available inside the container.</p>
-</div>
 
 
     </div>
@@ -187,7 +173,7 @@ available inside the container.</p>
     </p>
     <p>
         &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
-      Last updated on Apr 16, 2016.<br/>
+      Last updated on Apr 17, 2016.<br/>
     </p>
   </div>
 </footer>

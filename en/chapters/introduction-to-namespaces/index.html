@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>3. Introduction to namespaces &mdash; Containter Book v0.1</title>
+    <title>2. Introduction to namespaces &mdash; Containter Book v0.1</title>
     
     <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../../../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Containter Book v0.1" href="../../../index.html" />
-    <link rel="next" title="4. The IPC namespace" href="../the-ipc-namespace/index.html" />
+    <link rel="next" title="3. The IPC namespace" href="../the-ipc-namespace/index.html" />
     <link rel="prev" title="1. Introduction to this book" href="../introduction/index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -67,15 +67,15 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">1. Introduction to this book</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html#introduction-to-containers">2. Introduction to containers</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Introduction to namespaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">4. The IPC namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-network-namespace/index.html">5. Network namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">6. The mount namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">7. The PID namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">8. The user namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">9. The UTS namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">10. Introduction to cgroups</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Introduction to namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-ipc-namespace/index.html">3. The IPC namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-network-namespace/index.html">4. Network namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">5. The mount namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">6. The PID namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">7. The user namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">8. The UTS namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">9. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-containers/index.html">10. Introduction to containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../history/index.html">11. History of containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../security/index.html">12. Security</a></li>
 </ul>
@@ -91,14 +91,14 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">3. Introduction to namespaces</a><ul>
-<li><a class="reference internal" href="#what-is-a-namespace">3.1. What is a namespace?</a></li>
-<li><a class="reference internal" href="#viewing-the-current-namespaces">3.2. Viewing the current namespaces</a></li>
-<li><a class="reference internal" href="#creating-new-namespaces">3.3. Creating new namespaces</a></li>
-<li><a class="reference internal" href="#pinning-namespaces">3.4. Pinning namespaces</a></li>
-<li><a class="reference internal" href="#entering-namespaces">3.5. Entering namespaces</a></li>
-<li><a class="reference internal" href="#destroying-and-leaving-namespaces">3.6. Destroying and leaving namespaces</a></li>
-<li><a class="reference internal" href="#using-command-line-tools-for-managing-namespaces">3.7. Using command line tools for managing namespaces</a></li>
+<li><a class="reference internal" href="#">2. Introduction to namespaces</a><ul>
+<li><a class="reference internal" href="#what-is-a-namespace">2.1. What is a namespace?</a></li>
+<li><a class="reference internal" href="#viewing-the-current-namespaces">2.2. Viewing the current namespaces</a></li>
+<li><a class="reference internal" href="#creating-new-namespaces">2.3. Creating new namespaces</a></li>
+<li><a class="reference internal" href="#pinning-namespaces">2.4. Pinning namespaces</a></li>
+<li><a class="reference internal" href="#entering-namespaces">2.5. Entering namespaces</a></li>
+<li><a class="reference internal" href="#destroying-and-leaving-namespaces">2.6. Destroying and leaving namespaces</a></li>
+<li><a class="reference internal" href="#using-command-line-tools-for-managing-namespaces">2.7. Using command line tools for managing namespaces</a></li>
 </ul>
 </li>
 </ul>
@@ -114,7 +114,7 @@
     </a>
   </li>
   <li>
-    <a href="../the-ipc-namespace/index.html" title="Next Chapter: 4. The IPC namespace"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">4. The IPC na... &raquo;</span>
+    <a href="../the-ipc-namespace/index.html" title="Next Chapter: 3. The IPC namespace"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">3. The IPC na... &raquo;</span>
     </a>
   </li>
               
@@ -145,9 +145,9 @@
     <div class="col-md-12 content">
       
   <div class="section" id="introduction-to-namespaces">
-<h1>3. Introduction to namespaces<a class="headerlink" href="#introduction-to-namespaces" title="Permalink to this headline">¶</a></h1>
+<h1>2. Introduction to namespaces<a class="headerlink" href="#introduction-to-namespaces" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-a-namespace">
-<h2>3.1. What is a namespace?<a class="headerlink" href="#what-is-a-namespace" title="Permalink to this headline">¶</a></h2>
+<h2>2.1. What is a namespace?<a class="headerlink" href="#what-is-a-namespace" title="Permalink to this headline">¶</a></h2>
 <p>Namespaces are used to give a limited view of the system to a particular
 process. For instance, a <cite>network</cite> namespace can be used to give a process the
 impression of only having certain network interfaces attached to the system. A
@@ -160,7 +160,7 @@ progresses.</p>
 which is what we will start with in this introductory chapter.</p>
 </div>
 <div class="section" id="viewing-the-current-namespaces">
-<span id="viewing-namespaces"></span><h2>3.2. Viewing the current namespaces<a class="headerlink" href="#viewing-the-current-namespaces" title="Permalink to this headline">¶</a></h2>
+<span id="viewing-namespaces"></span><h2>2.2. Viewing the current namespaces<a class="headerlink" href="#viewing-the-current-namespaces" title="Permalink to this headline">¶</a></h2>
 <p>All processes start out in the same namespace, which is the same as saying that
 starting out, there are no namespaces. The namespace a process currently
 participates in can be seen by investigating the <cite>/proc/&lt;pid&gt;/ns/</cite> directory.
@@ -201,7 +201,7 @@ belonging to the same namespace, as in the example above, will have a shared
 view.</p>
 </div>
 <div class="section" id="creating-new-namespaces">
-<h2>3.3. Creating new namespaces<a class="headerlink" href="#creating-new-namespaces" title="Permalink to this headline">¶</a></h2>
+<h2>2.3. Creating new namespaces<a class="headerlink" href="#creating-new-namespaces" title="Permalink to this headline">¶</a></h2>
 <p>The question is then, how do we create a new namespace? There are two ways, one
 is used when creating a new namespace for the current process, and one is used
 when creating a new namespace while spawning a new process. Both of these
@@ -418,7 +418,7 @@ how they are created.</p>
 </td></tr></table></div>
 </div>
 <div class="section" id="pinning-namespaces">
-<h2>3.4. Pinning namespaces<a class="headerlink" href="#pinning-namespaces" title="Permalink to this headline">¶</a></h2>
+<h2>2.4. Pinning namespaces<a class="headerlink" href="#pinning-namespaces" title="Permalink to this headline">¶</a></h2>
 <p>A namespace remains alive as long as one of the following conditions is fulfilled:</p>
 <ul class="simple">
 <li>The process which created the namespace is still running (and the namespace has not been unshared)</li>
@@ -498,7 +498,7 @@ without having any use for them, therefore the next section will introduce
 entering and sharing namespaces between processes.</p>
 </div>
 <div class="section" id="entering-namespaces">
-<h2>3.5. Entering namespaces<a class="headerlink" href="#entering-namespaces" title="Permalink to this headline">¶</a></h2>
+<h2>2.5. Entering namespaces<a class="headerlink" href="#entering-namespaces" title="Permalink to this headline">¶</a></h2>
 <p>Once a namespace has been pinned, or otherwise shared, it can be entered by
 other processes using the <cite>setns</cite> system call. An example of some C code using
 this system call is seen below. The first parameter for the <cite>setns</cite> system call
@@ -732,7 +732,7 @@ in the new shell after we have issued the <cite>setns</cite> system call using t
 <cite>nsenter</cite> utility.</p>
 </div>
 <div class="section" id="destroying-and-leaving-namespaces">
-<h2>3.6. Destroying and leaving namespaces<a class="headerlink" href="#destroying-and-leaving-namespaces" title="Permalink to this headline">¶</a></h2>
+<h2>2.6. Destroying and leaving namespaces<a class="headerlink" href="#destroying-and-leaving-namespaces" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">Describe how removing bind mounts destroys pinned namespaces, and how
@@ -740,7 +740,7 @@ exiting a namespace suffices to destroy it if it has not been pinned.</p>
 </div>
 </div>
 <div class="section" id="using-command-line-tools-for-managing-namespaces">
-<h2>3.7. Using command line tools for managing namespaces<a class="headerlink" href="#using-command-line-tools-for-managing-namespaces" title="Permalink to this headline">¶</a></h2>
+<h2>2.7. Using command line tools for managing namespaces<a class="headerlink" href="#using-command-line-tools-for-managing-namespaces" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>nsenter</cite> and <cite>unshare</cite> code examples above can easily be extended to
 handle the six currently available namespaces. We will leave these extensions
 up to the reader in order to not clutter the examples of this text, and
@@ -767,7 +767,7 @@ earlier examples.</p>
     </p>
     <p>
         &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
-      Last updated on Apr 16, 2016.<br/>
+      Last updated on Apr 17, 2016.<br/>
     </p>
   </div>
 </footer>

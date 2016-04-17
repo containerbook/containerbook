@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>4. The IPC namespace &mdash; Containter Book v0.1</title>
+    <title>3. The IPC namespace &mdash; Containter Book v0.1</title>
     
     <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -29,8 +29,8 @@
     <script type="text/javascript" src="../../../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Containter Book v0.1" href="../../../index.html" />
-    <link rel="next" title="5. Network namespace" href="../the-network-namespace/index.html" />
-    <link rel="prev" title="3. Introduction to namespaces" href="../introduction-to-namespaces/index.html" />
+    <link rel="next" title="4. Network namespace" href="../the-network-namespace/index.html" />
+    <link rel="prev" title="2. Introduction to namespaces" href="../introduction-to-namespaces/index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -67,15 +67,15 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">1. Introduction to this book</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html#introduction-to-containers">2. Introduction to containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">3. Introduction to namespaces</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. The IPC namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-network-namespace/index.html">5. Network namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">6. The mount namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">7. The PID namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">8. The user namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">9. The UTS namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">10. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-namespaces/index.html">2. Introduction to namespaces</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. The IPC namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-network-namespace/index.html">4. Network namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-mount-namespace/index.html">5. The mount namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-pid-namespace/index.html">6. The PID namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-user-namespace/index.html">7. The user namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the-uts-namespace/index.html">8. The UTS namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-cgroups/index.html">9. Introduction to cgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction-to-containers/index.html">10. Introduction to containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../history/index.html">11. History of containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../security/index.html">12. Security</a></li>
 </ul>
@@ -91,8 +91,8 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">4. The IPC namespace</a><ul>
-<li><a class="reference internal" href="#listing-namespaces">4.1. Listing namespaces</a></li>
+<li><a class="reference internal" href="#">3. The IPC namespace</a><ul>
+<li><a class="reference internal" href="#listing-namespaces">3.1. Listing namespaces</a></li>
 </ul>
 </li>
 </ul>
@@ -104,11 +104,11 @@
               
                 
   <li>
-    <a href="../introduction-to-namespaces/index.html" title="Previous Chapter: 3. Introduction to namespaces"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 3. Introducti...</span>
+    <a href="../introduction-to-namespaces/index.html" title="Previous Chapter: 2. Introduction to namespaces"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 2. Introducti...</span>
     </a>
   </li>
   <li>
-    <a href="../the-network-namespace/index.html" title="Next Chapter: 5. Network namespace"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">5. Network na... &raquo;</span>
+    <a href="../the-network-namespace/index.html" title="Next Chapter: 4. Network namespace"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">4. Network na... &raquo;</span>
     </a>
   </li>
               
@@ -139,7 +139,7 @@
     <div class="col-md-12 content">
       
   <div class="section" id="the-ipc-namespace">
-<h1>4. The IPC namespace<a class="headerlink" href="#the-ipc-namespace" title="Permalink to this headline">¶</a></h1>
+<h1>3. The IPC namespace<a class="headerlink" href="#the-ipc-namespace" title="Permalink to this headline">¶</a></h1>
 <p>Inter Process Communication (IPC) is used to communicate between processes.
 There are currently two different types of IPC in Linux; the POSIX message
 queues (<a class="reference external" href="http://linux.die.net/man/7/mq_overview">mq_overview(7)</a>), and the System V IPC mechanisms
@@ -165,7 +165,7 @@ group of IPC mechanisms, where each group is completely isolated from the
 others. Processes participating in the same namespace have access to the same
 IPC resources within the namespace.</p>
 <div class="section" id="listing-namespaces">
-<h2>4.1. Listing namespaces<a class="headerlink" href="#listing-namespaces" title="Permalink to this headline">¶</a></h2>
+<h2>3.1. Listing namespaces<a class="headerlink" href="#listing-namespaces" title="Permalink to this headline">¶</a></h2>
 <p>As a first example, we will try to list the available IPC channels available in
 the global namespace, and once the IPC namespace has been unshared.</p>
 <p>In the example below, the <a class="reference external" href="http://linux.die.net/man/1/ipcs">ipcs(1)</a> command is used to list the
@@ -253,7 +253,7 @@ happens when the same code is used in different namespaces.</p>
     </p>
     <p>
         &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
-      Last updated on Apr 16, 2016.<br/>
+      Last updated on Apr 17, 2016.<br/>
     </p>
   </div>
 </footer>
