@@ -32,6 +32,7 @@ We are heavily working on this book and that means several things:
     en/chapters/the-user-namespace/index
     en/chapters/the-uts-namespace/index
     en/chapters/introduction-to-cgroups/index
+    en/chapters/introduction-to-containers/index
     en/chapters/history/index
     en/chapters/security/index
 
