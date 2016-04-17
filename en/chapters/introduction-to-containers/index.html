@@ -93,7 +93,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">10. Introduction to containers</a><ul>
 <li><a class="reference internal" href="#the-container-controller-software">10.1. The container controller software</a></li>
-<li><a class="reference internal" href="#building-and-deplying-software-in-a-container">10.2. Building and deplying software in a container</a></li>
+<li><a class="reference internal" href="#building-and-deploying-software-in-a-container">10.2. Building and deploying software in a container</a></li>
 </ul>
 </li>
 </ul>
@@ -147,17 +147,17 @@ several of the namespaces and cgroups, we can build very powerful isolation
 mechanisms.</p>
 <p>While namespaces and cgroups are (hopefully) tangible concepts, the container
 concept is a bit more abstract. For now, it should suffice to imagine a
-combination of the namespaces and cgroups already covered, and when discussin
+combination of the namespaces and cgroups already covered, and when discussing
 this combination, we will call it a &#8216;container&#8217;.</p>
 <p>When discussing containers from a user or administrator perspective, there are
 two common types of containers, the <cite>application containers</cite> and the <cite>system
 containers</cite>. <cite>Application containers</cite> are used to launch a specific application
 within a container, such as a web server, or a database server. A <cite>system
 container</cite> on the other hand is a container which is used to launch an entire
-Linux userpace, such as Debian.</p>
+Linux user space, such as Debian.</p>
 <p>We will first cover application containers. We will enable all the namespaces,
 and demonstrate how this gives an application a very limited view of the host
-system, and we will also show two different deployment scenarions for
+system, and we will also show two different deployment scenarios for
 applications running in containers.</p>
 <div class="section" id="the-container-controller-software">
 <h2>10.1. The container controller software<a class="headerlink" href="#the-container-controller-software" title="Permalink to this headline">¶</a></h2>
@@ -341,15 +341,15 @@ container.</p>
 </pre></div>
 </td></tr></table></div>
 </div>
-<div class="section" id="building-and-deplying-software-in-a-container">
-<h2>10.2. Building and deplying software in a container<a class="headerlink" href="#building-and-deplying-software-in-a-container" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="building-and-deploying-software-in-a-container">
+<h2>10.2. Building and deploying software in a container<a class="headerlink" href="#building-and-deploying-software-in-a-container" title="Permalink to this headline">¶</a></h2>
 <p>It may be tempting to just copy some binary (/bin/bash for example) into a
 sysroot and attempt to launch <cite>contejner</cite> on that path. Unfortunately, this
 will have limited success however. It is important to remember that the root
 file system of the container will be fully separate from the host file systems,
 and thus, while the <cite>bash</cite> binary will be available within the container, the
-runtime library dependencies will not.</p>
-<p>On my system, these are the runtime dependencies for <cite>/bin/bash</cite>:</p>
+run time library dependencies will not.</p>
+<p>On my system, these are the run time dependencies for <cite>/bin/bash</cite>:</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -365,12 +365,12 @@ runtime library dependencies will not.</p>
         /lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00005625bb3f6000<span class="o">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>So, in order to run <cite>/bin/bash</cite> within a container, we would also need ot copy
-these runtime dependencies into the container (and also any runtime
+<p>So, in order to run <cite>/bin/bash</cite> within a container, we would also need to copy
+these run time dependencies into the container (and also any run time
 dependencies of these libraries).</p>
 <p>For the purposes of this text, and in order to proceed a bit faster, we will
 opt for a faster demonstration, which is <cite>static linking</cite> - meaning that we
-include all the runtime dependencies in the executable we are building -
+include all the run time dependencies in the executable we are building -
 thereby removing the need of copying so many files.</p>
 <p>Consider the following simple C program:</p>
 <div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
