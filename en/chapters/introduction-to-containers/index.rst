@@ -41,9 +41,9 @@ container.
     :language: c
     :linenos:
 
----------------------------------------------
+----------------------------------------------
 Building and deploying software in a container
----------------------------------------------
+----------------------------------------------
 
 It may be tempting to just copy some binary (/bin/bash for example) into a
 sysroot and attempt to launch `contejner` on that path. Unfortunately, this
@@ -97,3 +97,164 @@ be run as-is within a container, as such:
     # cp helloworld /tmp/container_root
     # sudo contejner /tmp/container_root /helloworld
     Hello world
+
+Building and deploying BusyBox
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+While the hello world example might be impressive enough, a complete command
+line environment would be more useful to have inside the container. BusyBox
+[#busybox]_ is a suite of tools which is used to provide a complete command-line
+environment, typically used for embedded systems, due to its small size.
+BusyBox contains implementations for many of the most crucial software
+typically found in Linux systems, such as :linuxman:`ls(1)`, :linuxman:`mv(1)`,
+:linuxman:`cp(1)` and :linuxman:`vi(1)`.
+
+BusyBox is highly configurable, and the set of included tools is flexible. For
+our purposes, we will use the default configuration, with some minor
+modifications. The reader is invited to play around with the set of included
+commands to see what is available.
+
+First, we will download the BusyBox sources:
+
+.. code-block:: bash
+
+    # git clone git://git.busybox.net/busybox
+
+Then, we will make one minor modification to the BusyBox sources. BusyBox will,
+per default, try to:linuxman:`setuid(2)` and :linuxman:`setgid(2)` to a
+specific user ID and group ID. We could configure BusyBox to pick the right
+user and group IDs in a configuration file, but in order to simplify things, we
+will simply disable this feature, which also gives us a chance to show how to
+configure BusyBox.
+
+If you have ever configured a Linux kernel, the `menuconfig` utility may be
+familiar. It is also used in BusyBox:
+
+.. code-block:: bash
+
+    # make menuconfig
+
+    BusyBox 1.25.0.git Configuration
+    -------------------------------------------------------------------------------
+    +------------------------- Busybox Configuration --------------------------+
+    |  Arrow keys navigate the menu.  <Enter> selects submenus --->.           |
+    |  Highlighted letters are hotkeys.  Pressing <Y> includes, <N> excludes,  |
+    |  <M> modularizes features.  Press <Esc><Esc> to exit, <?> for Help, </>  |
+    |  for Search.  Legend: [*] built-in  [ ] excluded  <M> module  < > module |
+    | +----------------------------------------------------------------------+ |
+    | |    Busybox Settings  --->                                            | |
+    | |--- Applets                                                           | |
+    | |    Archival Utilities  --->                                          | |
+    | |    Coreutils  --->                                                   | |
+    | |    Console Utilities  --->                                           | |
+    | |    Debian Utilities  --->                                            | |
+    | |    Editors  --->                                                     | |
+    | |    Finding Utilities  --->                                           | |
+    | |    Init Utilities  --->                                              | |
+    | |    Login/Password Management Utilities  --->                         | |
+    | |    Linux Ext2 FS Progs  --->                                         | |
+    | |    Linux Module Utilities  --->                                      | |
+    | |    Linux System Utilities  --->                                      | |
+    | |    Miscellaneous Utilities  --->                                     | |
+    | |    Networking Utilities  --->                                        | |
+    | |    Print Utilities  --->                                             | |
+    | |    Mail Utilities  --->                                              | |
+    | |    Process Utilities  --->                                           | |
+    | |    Runit Utilities  --->                                             | |
+    | |    Shells  --->                                                      | |
+    | |    System Logging Utilities  --->                                    | |
+    | |---                                                                   | |
+    | |    Load an Alternate Configuration File                              | |
+    | |    Save Configuration to an Alternate File                           | |
+    | |                                                                      | |
+    | +----------------------------------------------------------------------+ |
+    +--------------------------------------------------------------------------+
+    |                     <Select>    < Exit >    < Help >                     |
+    +--------------------------------------------------------------------------+
+
+The following option needs to be disabled in order to disable the uid and gid
+setting. Navigate to the option as indicated by the "Location" description
+using the arrow keys and the return key on your keyboard. The shift key is used
+to toggle between buttons.
+
+.. code-block:: bash
+
+  | Symbol: FEATURE_SUID [=n]
+  | Prompt: Support for SUID/SGID handling
+  |   Defined at Config.in:347
+  |   Location:
+  |     -> Busybox Settings
+  |       -> General Configuration
+
+Once BusyBox has been configured, it can be built using `make`, and a `busybox`
+binary will be produced in the top source directory. For our purposes, we would
+like to produce a statically linked binary, as we did with the `helloworld`
+example. Thus, the command to run looks like follows:
+
+.. code-block:: bash
+
+    LDFLAGS="--static" make
+
+BusyBox consists of only one binary, and the "sub command" to use is selected
+in one of two ways:
+
+- As a command-line parameter to the `busybox` binary, for example `./busybox ls`
+- By creating a symlink to the `busybox` binary, where the symlink name is the same of the sub command to run, for example: `ln -s ./busybox /bin/ls`
+
+Here are some examples of command invocations using BusyBox:
+
+.. code-block:: bash
+
+    $ ./busybox ls /sys
+    block       class       devices     fs          kernel      power
+    bus         dev         firmware    hypervisor  module
+
+    $ ./busybox lsusb
+    Bus 001 Device 002: ID 8087:0a2a
+    Bus 001 Device 003: ID 04ca:703c
+    Bus 003 Device 002: ID 8087:8001
+    Bus 001 Device 001: ID 1d6b:0002
+    Bus 002 Device 001: ID 1d6b:0003
+    Bus 003 Device 001: ID 1d6b:0002
+
+We will, however, opt for the symlinking approach, and create symlinks for all
+the commands provided by BusyBox.
+
+The following shell snippet will create symlinks for all commands provided by
+BusyBox:
+
+.. code-block:: bash
+    :linenos:
+
+    #!/busybox ash
+
+    /busybox --list-full | \
+    while read app; do
+        /busybox mkdir -p `/busybox dirname $app`
+        /busybox ln -sf "/busybox" "/$app"
+    done
+
+    mkdir -p /proc /bin
+    mount -t proc none /proc
+
+Notice that we are invoking `/bin/ash`, which is the shell provided by
+BusyBox. In other words, this shell script is intended to be run within the
+container.
+
+In order to set up BusyBox in a contained environment, we need to create a
+directory for use as our contained root, and copy BusyBox plus the shell script
+above to the new root.
+
+.. code-block:: bash
+    :linenos:
+
+    # mkdir /tmp/contained_root
+    # cp busybox /tmp/contained_root
+    # cp setup.sh /tmp/contained_root
+    # sudo ./contejner /tmp/contained_root /busybox ash
+    # cd /
+    # ./setup.sh
+    # ls
+    bin       busybox   linuxrc   proc      sbin      setup.sh  usr
+
+.. [#busybox] https://www.busybox.net/
