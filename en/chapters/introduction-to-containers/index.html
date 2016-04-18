@@ -93,7 +93,10 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">10. Introduction to containers</a><ul>
 <li><a class="reference internal" href="#the-container-controller-software">10.1. The container controller software</a></li>
-<li><a class="reference internal" href="#building-and-deploying-software-in-a-container">10.2. Building and deploying software in a container</a></li>
+<li><a class="reference internal" href="#building-and-deploying-software-in-a-container">10.2. Building and deploying software in a container</a><ul>
+<li><a class="reference internal" href="#building-and-deploying-busybox">10.2.1. Building and deploying BusyBox</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -399,6 +402,166 @@ be run as-is within a container, as such:</p>
 Hello world
 </pre></div>
 </td></tr></table></div>
+<div class="section" id="building-and-deploying-busybox">
+<h3>10.2.1. Building and deploying BusyBox<a class="headerlink" href="#building-and-deploying-busybox" title="Permalink to this headline">¶</a></h3>
+<p>While the hello world example might be impressive enough, a complete command
+line environment would be more useful to have inside the container. BusyBox
+<a class="footnote-reference" href="#busybox" id="id1">[1]</a> is a suite of tools which is used to provide a complete command-line
+environment, typically used for embedded systems, due to its small size.
+BusyBox contains implementations for many of the most crucial software
+typically found in Linux systems, such as <a class="reference external" href="http://linux.die.net/man/1/ls">ls(1)</a>, <a class="reference external" href="http://linux.die.net/man/1/mv">mv(1)</a>,
+<a class="reference external" href="http://linux.die.net/man/1/cp">cp(1)</a> and <a class="reference external" href="http://linux.die.net/man/1/vi">vi(1)</a>.</p>
+<p>BusyBox is highly configurable, and the set of included tools is flexible. For
+our purposes, we will use the default configuration, with some minor
+modifications. The reader is invited to play around with the set of included
+commands to see what is available.</p>
+<p>First, we will download the BusyBox sources:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># git clone git://git.busybox.net/busybox</span>
+</pre></div>
+</div>
+<p>Then, we will make one minor modification to the BusyBox sources. BusyBox will,
+per default, try to:linuxman:<cite>setuid(2)</cite> and <a class="reference external" href="http://linux.die.net/man/2/setgid">setgid(2)</a> to a
+specific user ID and group ID. We could configure BusyBox to pick the right
+user and group IDs in a configuration file, but in order to simplify things, we
+will simply disable this feature, which also gives us a chance to show how to
+configure BusyBox.</p>
+<p>If you have ever configured a Linux kernel, the <cite>menuconfig</cite> utility may be
+familiar. It is also used in BusyBox:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># make menuconfig</span>
+
+BusyBox 1.25.0.git Configuration
+-------------------------------------------------------------------------------
++------------------------- Busybox Configuration --------------------------+
+<span class="p">|</span>  Arrow keys navigate the menu.  &lt;Enter&gt; selects submenus ---&gt;.           <span class="p">|</span>
+<span class="p">|</span>  Highlighted letters are hotkeys.  Pressing &lt;Y&gt; includes, &lt;N&gt; excludes,  <span class="p">|</span>
+<span class="p">|</span>  &lt;M&gt; modularizes features.  Press &lt;Esc&gt;&lt;Esc&gt; to exit, &lt;?&gt; <span class="k">for</span> Help, &lt;/&gt;  <span class="p">|</span>
+<span class="p">|</span>  <span class="k">for</span> Search.  Legend: <span class="o">[</span>*<span class="o">]</span> built-in  <span class="o">[</span> <span class="o">]</span> excluded  &lt;M&gt; module  &lt; &gt; module <span class="p">|</span>
+<span class="p">|</span> +----------------------------------------------------------------------+ <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Busybox Settings  ---&gt;                                            <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>--- Applets                                                           <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Archival Utilities  ---&gt;                                          <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Coreutils  ---&gt;                                                   <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Console Utilities  ---&gt;                                           <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Debian Utilities  ---&gt;                                            <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Editors  ---&gt;                                                     <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Finding Utilities  ---&gt;                                           <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Init Utilities  ---&gt;                                              <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Login/Password Management Utilities  ---&gt;                         <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Linux Ext2 FS Progs  ---&gt;                                         <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Linux Module Utilities  ---&gt;                                      <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Linux System Utilities  ---&gt;                                      <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Miscellaneous Utilities  ---&gt;                                     <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Networking Utilities  ---&gt;                                        <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Print Utilities  ---&gt;                                             <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Mail Utilities  ---&gt;                                              <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Process Utilities  ---&gt;                                           <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Runit Utilities  ---&gt;                                             <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Shells  ---&gt;                                                      <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    System Logging Utilities  ---&gt;                                    <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>---                                                                   <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Load an Alternate Configuration File                              <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>    Save Configuration to an Alternate File                           <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> <span class="p">|</span>                                                                      <span class="p">|</span> <span class="p">|</span>
+<span class="p">|</span> +----------------------------------------------------------------------+ <span class="p">|</span>
++--------------------------------------------------------------------------+
+<span class="p">|</span>                     &lt;Select&gt;    &lt; Exit &gt;    &lt; Help &gt;                     <span class="p">|</span>
++--------------------------------------------------------------------------+
+</pre></div>
+</div>
+<p>The following option needs to be disabled in order to disable the uid and gid
+setting. Navigate to the option as indicated by the &#8220;Location&#8221; description
+using the arrow keys and the return key on your keyboard. The shift key is used
+to toggle between buttons.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="p">|</span> Symbol: FEATURE_SUID <span class="o">[=</span>n<span class="o">]</span>
+<span class="p">|</span> Prompt: Support <span class="k">for</span> SUID/SGID handling
+<span class="p">|</span>   Defined at Config.in:347
+<span class="p">|</span>   Location:
+<span class="p">|</span>     -&gt; Busybox Settings
+<span class="p">|</span>       -&gt; General Configuration
+</pre></div>
+</div>
+<p>Once BusyBox has been configured, it can be built using <cite>make</cite>, and a <cite>busybox</cite>
+binary will be produced in the top source directory. For our purposes, we would
+like to produce a statically linked binary, as we did with the <cite>helloworld</cite>
+example. Thus, the command to run looks like follows:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;--static&quot;</span> make
+</pre></div>
+</div>
+<p>BusyBox consists of only one binary, and the &#8220;sub command&#8221; to use is selected
+in one of two ways:</p>
+<ul class="simple">
+<li>As a command-line parameter to the <cite>busybox</cite> binary, for example <cite>./busybox ls</cite></li>
+<li>By creating a symlink to the <cite>busybox</cite> binary, where the symlink name is the same of the sub command to run, for example: <cite>ln -s ./busybox /bin/ls</cite></li>
+</ul>
+<p>Here are some examples of command invocations using BusyBox:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./busybox ls /sys
+block       class       devices     fs          kernel      power
+bus         dev         firmware    hypervisor  module
+
+$ ./busybox lsusb
+Bus <span class="m">001</span> Device 002: ID 8087:0a2a
+Bus <span class="m">001</span> Device 003: ID 04ca:703c
+Bus <span class="m">003</span> Device 002: ID 8087:8001
+Bus <span class="m">001</span> Device 001: ID 1d6b:0002
+Bus <span class="m">002</span> Device 001: ID 1d6b:0003
+Bus <span class="m">003</span> Device 001: ID 1d6b:0002
+</pre></div>
+</div>
+<p>We will, however, opt for the symlinking approach, and create symlinks for all
+the commands provided by BusyBox.</p>
+<p>The following shell snippet will create symlinks for all commands provided by
+BusyBox:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/busybox ash</span>
+
+/busybox --list-full <span class="p">|</span> <span class="se">\</span>
+<span class="k">while</span> <span class="nb">read</span> app<span class="p">;</span> <span class="k">do</span>
+    /busybox mkdir -p <span class="sb">`</span>/busybox dirname <span class="nv">$app</span><span class="sb">`</span>
+    /busybox ln -sf <span class="s2">&quot;/busybox&quot;</span> <span class="s2">&quot;/</span><span class="nv">$app</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+mkdir -p /proc /bin
+mount -t proc none /proc
+</pre></div>
+</td></tr></table></div>
+<p>Notice that we are invoking <cite>/bin/ash</cite>, which is the shell provided by
+BusyBox. In other words, this shell script is intended to be run within the
+container.</p>
+<p>In order to set up BusyBox in a contained environment, we need to create a
+directory for use as our contained root, and copy BusyBox plus the shell script
+above to the new root.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># mkdir /tmp/contained_root</span>
+<span class="c1"># cp busybox /tmp/contained_root</span>
+<span class="c1"># cp setup.sh /tmp/contained_root</span>
+<span class="c1"># sudo ./contejner /tmp/contained_root /busybox ash</span>
+<span class="c1"># cd /</span>
+<span class="c1"># ./setup.sh</span>
+<span class="c1"># ls</span>
+bin       busybox   linuxrc   proc      sbin      setup.sh  usr
+</pre></div>
+</td></tr></table></div>
+<table class="docutils footnote" frame="void" id="busybox" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://www.busybox.net/">https://www.busybox.net/</a></td></tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 
@@ -416,7 +579,7 @@ Hello world
     </p>
     <p>
         &copy; Copyright 2016 Johan Thelin, Jonatan Pålsson &amp; Oscar Andreasson. This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.<br/>
-      Last updated on Apr 17, 2016.<br/>
+      Last updated on Apr 18, 2016.<br/>
     </p>
   </div>
 </footer>
