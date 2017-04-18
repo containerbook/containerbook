@@ -2,6 +2,8 @@
 Introduction to this book
 =========================
 
+I'm a speling mistkae!
+
 This project started out when a group of people from Pelagicore went to FOSDEM
 2016. We saw several very interesting talks on containers and talked among
 ourselves about it and realized that we actually have quite a lot of experience
