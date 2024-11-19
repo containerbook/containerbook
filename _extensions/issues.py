@@ -1,5 +1,5 @@
 from docutils import nodes
-from sphinx.util.compat import Directive
+from docutils.parsers.rst import Directive, directives
 import urllib
 
 class issues(nodes.General, nodes.Element):
