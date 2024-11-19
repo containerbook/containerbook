@@ -164,6 +164,14 @@ install-deps-deb:
 		python3-sphinx                           \
 		python3-sphinx-bootstrap-theme
 
+.PHONY: dockerimage
+dockerimage:
+	echo "User ${USER} userid $(id -u) groupid $(id -g)"
+	docker build --build-arg USERNAME=${USER} \
+				 --build-arg USERID=$(shell id -u) \
+				 --build-arg GROUPID=$(shell id -g) \
+				 -t containerbook:latest build-env/
+
 examples:
 	$(MAKE) -C en examples
 
